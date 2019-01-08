@@ -1,9 +1,11 @@
 import axios from 'axios'
 
 const GOT_PLANTS = 'GOT_PLANTS'
+const GOT_SINGLE_PLANT = 'GOT_SINGLE_PLANT'
 
 let initialState = {
-  plants: []
+  plants: [],
+  singlePlant: {}
 }
 
 const gotPlants = plants => {
@@ -13,9 +15,21 @@ const gotPlants = plants => {
   }
 }
 
+const gotSinglePlant = plant => {
+  return {
+    type: GOT_SINGLE_PLANT,
+    plant
+  }
+}
+
 export const getPlants = () => async dispatch => {
   const {data} = await axios.get('/api/plants')
   dispatch(gotPlants(data))
+}
+
+export const getSinglePlant = id => async dispatch => {
+  const {data} = await axios.get(`/api/plants/${id}`)
+  dispatch(gotSinglePlant(data))
 }
 
 const plantsReducer = (state = initialState, action) => {
@@ -24,6 +38,11 @@ const plantsReducer = (state = initialState, action) => {
       return {
         ...state,
         plants: action.plants
+      }
+    case GOT_SINGLE_PLANT:
+      return {
+        ...state,
+        singlePlant: action.plant
       }
     default:
       return state
