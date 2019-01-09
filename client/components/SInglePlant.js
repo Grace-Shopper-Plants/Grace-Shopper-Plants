@@ -1,5 +1,5 @@
 import React from 'react'
-import {getSinglePlant} from '../store/plants-reducer'
+import {getSinglePlant} from '../store/plants'
 import {connect} from 'react-redux'
 
 class SinglePlant extends React.Component {
@@ -10,11 +10,11 @@ class SinglePlant extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="single-plant">
         <h1>Please buy me, I need a new home! They don't feed me :(</h1>
         <h3>{this.props.plant.name}</h3>
-        <h3>${this.props.plant.price}</h3>
-        <img src={this.props.plant.imgUrl} />
+        <h3>${(this.props.plant.price / 100).toFixed(2)}</h3>
+        <img src={this.props.plant.imageUrl} />
         <h5>{this.props.plant.description}</h5>
       </div>
     )
@@ -23,7 +23,7 @@ class SinglePlant extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    plant: state.plantsReducer.singlePlant
+    plant: state.products.singlePlant
   }
 }
 

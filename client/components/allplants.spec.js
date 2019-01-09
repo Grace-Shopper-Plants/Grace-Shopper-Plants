@@ -11,8 +11,8 @@ import Adapter from 'enzyme-adapter-react-16'
 enzyme.configure({adapter: new Adapter()})
 
 import AllPlants from './AllPlants'
-import {gotPlants, GOT_PLANTS} from '../store/plants-reducer'
-import plantsReducer from '../store/plants-reducer'
+import {gotPlants, GOT_PLANTS} from '../store/plants'
+import plantsReducer from '../store/plants'
 
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'

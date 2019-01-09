@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {Redirect, withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -10,7 +10,7 @@ import SinglePlant from './components/SinglePlant'
 /**
  * COMPONENT
  */
-class Routes extends Component {
+class Routes extends React.Component {
   componentDidMount() {
     this.props.loadInitialData()
   }
