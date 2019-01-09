@@ -13,7 +13,7 @@ const Plant = db.define('plant', {
     type: Sequelize.TEXT,
     allowNull: false,
     defaultValue: 'Information coming soon!'
-  },
+  }, //CG: Change this to intger and measure pennies to avoid rounding problems.
   price: {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
@@ -29,6 +29,7 @@ const Plant = db.define('plant', {
       min: 0
     }
   },
+  //CG: Be careful using abbreviations so that evryone who works on your app is on the same page.
   imgUrl: {
     type: Sequelize.STRING,
     defaultValue:

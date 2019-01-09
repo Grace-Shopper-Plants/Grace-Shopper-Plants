@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+// CG: SET_PLANTS maybe?
 export const GOT_PLANTS = 'GOT_PLANTS'
 export const GOT_SINGLE_PLANT = 'GOT_SINGLE_PLANT'
 

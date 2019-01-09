@@ -15,3 +15,29 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+// router.use('/:id', (req, res, next) => {
+// })
+//CG: Secure single user route.
+router.get('/:id', async (req, res, next) => {
+  const userId = Number(req.params.id);
+  if(req.user && req.user.id === userId){ //CG: How can you abstract this into some sort of gate keeper middleware?
+    try {
+      const user = await User.findById(userId);
+      res.json(user);
+    } catch(err){
+      next(err);
+    }
+  } else {
+    res.status(403).send('You shall not pass!');
+  }
+})
+
+// cookies
+// sessions --> users/logins
+
+// {
+    // "jskdnfjksdgnsdjkg": {
+      // session 54
+      // userID 15
+    // }
+// }

@@ -31,6 +31,7 @@ if (process.env.NODE_ENV !== 'production') require('../secrets')
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
 
+// this method gives you access to req.user
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await db.models.user.findById(id)

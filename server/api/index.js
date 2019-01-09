@@ -9,3 +9,7 @@ router.use((req, res, next) => {
   error.status = 404
   next(error)
 })
+
+// /api/users/:id
+// /api/users/:id/orders
+// /orders/:userid "?!?@?? NO"
