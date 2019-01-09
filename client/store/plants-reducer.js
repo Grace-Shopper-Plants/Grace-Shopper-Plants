@@ -1,21 +1,21 @@
 import axios from 'axios'
 
-const GOT_PLANTS = 'GOT_PLANTS'
-const GOT_SINGLE_PLANT = 'GOT_SINGLE_PLANT'
+export const GOT_PLANTS = 'GOT_PLANTS'
+export const GOT_SINGLE_PLANT = 'GOT_SINGLE_PLANT'
 
 let initialState = {
   plants: [],
   singlePlant: {}
 }
 
-const gotPlants = plants => {
+export const gotPlants = plants => {
   return {
     type: GOT_PLANTS,
     plants
   }
 }
 
-const gotSinglePlant = plant => {
+export const gotSinglePlant = plant => {
   return {
     type: GOT_SINGLE_PLANT,
     plant
