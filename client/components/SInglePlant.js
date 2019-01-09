@@ -9,20 +9,13 @@ class SinglePlant extends React.Component {
   }
 
   render() {
-    const plant = {
-      id: 1,
-      name: 'Whomping Willow',
-      price: 500,
-      imageUrl: 'PLACEHOLDER',
-      description: "Broke Ron's car"
-    }
     return (
       <div>
-        <h1>Please buy me, I need a new home!</h1>
-        <h3>{plant.name}</h3>
-        <h3>${plant.price}</h3>
-        <h3>{plant.imageUrl}</h3>
-        <h5>{plant.description}</h5>
+        <h1>Please buy me, I need a new home! They don't feed me :(</h1>
+        <h3>{this.props.plant.name}</h3>
+        <h3>${this.props.plant.price}</h3>
+        <img src={this.props.plant.imgUrl} />
+        <h5>{this.props.plant.description}</h5>
       </div>
     )
   }
