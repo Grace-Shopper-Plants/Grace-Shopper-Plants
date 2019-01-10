@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const orderNumber = db.define('orderNumber', {})
+const OrderNumber = db.define('ordernumber', {})
 
-module.exports = orderNumber
+module.exports = OrderNumber

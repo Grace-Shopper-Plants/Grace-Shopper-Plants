@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Plant} = require('../server/db/models')
+const {User, Plant, OrderNumber, OrderHistory} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -142,10 +142,111 @@ async function seed() {
 
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({email: 'murphy@email.com', password: '123'}),
+    User.create({email: 'bob@email.com', password: '456'}),
+    User.create({email: 'milly@email.com', password: '789'}),
+    User.create({email: 'yoyo@email.com', password: '127'}),
+    User.create({email: 'mocha@email.com', password: '321'})
   ])
 
-  console.log(`seeded ${users.length} users`)
+  const orderNumbers = await Promise.all([
+    OrderNumber.create({userId: 1}),
+    OrderNumber.create({userId: 4}),
+    OrderNumber.create({userId: 5}),
+    OrderNumber.create({userId: 2}),
+    OrderNumber.create({userId: 1}),
+    OrderNumber.create({userId: 4}),
+    OrderNumber.create({userId: 3})
+  ])
+
+  const orderHistories = await Promise.all([
+    OrderHistory.create({
+      plantId: 3,
+      ordernumberId: 1,
+      quantity: 2,
+      bought: true,
+      soldprice: 124,
+      date: '2018-08-09 04:12:02'
+    }),
+    OrderHistory.create({
+      ordernumberId: 1,
+      plantId: 3,
+      quantity: 2,
+      bought: true,
+      soldprice: 124,
+      date: '2018-08-09 04:12:02'
+    }),
+    OrderHistory.create({
+      ordernumberId: 1,
+      plantId: 5,
+      quantity: 1,
+      bought: true,
+      soldprice: 1454,
+      date: '2018-08-09 04:12:02'
+    }),
+    OrderHistory.create({
+      ordernumberId: 2,
+      plantId: 3,
+      quantity: 4,
+      bought: true,
+      soldprice: 1244,
+      date: '2018-08-09 04:12:02'
+    }),
+    OrderHistory.create({
+      ordernumberId: 3,
+      plantId: 1,
+      quantity: 1,
+      bought: false,
+      soldprice: 12344
+    }),
+    OrderHistory.create({
+      ordernumberId: 3,
+      plantId: 2,
+      quantity: 10,
+      bought: false,
+      soldprice: 213124
+    }),
+    OrderHistory.create({
+      ordernumberId: 3,
+      plantId: 7,
+      quantity: 1,
+      bought: false,
+      soldprice: 32124
+    }),
+    OrderHistory.create({
+      ordernumberId: 4,
+      plantId: 8,
+      quantity: 2,
+      bought: true,
+      soldprice: 12124,
+      date: '2018-09-04 01:05:02'
+    }),
+    OrderHistory.create({
+      ordernumberId: 4,
+      plantId: 9,
+      quantity: 1,
+      bought: true,
+      soldprice: 1324,
+      date: '2018-09-04 01:05:02'
+    }),
+    OrderHistory.create({
+      ordernumberId: 5,
+      plantId: 2,
+      quantity: 1,
+      bought: false,
+      soldprice: 23124
+    }),
+    OrderHistory.create({
+      ordernumberId: 6,
+      plantId: 3,
+      quantity: 2,
+      bought: true,
+      soldprice: 12124,
+      date: '2019-01-09 11:05:02'
+    })
+  ])
+
+  //console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
 
