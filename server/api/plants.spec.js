@@ -15,7 +15,7 @@ describe('Plant routes', () => {
         name: 'Cattail',
         description:
           'Cattails are upright perennial plants that emerge from creeping rhizomes...',
-        price: 21.5,
+        price: 2150,
         inventory: 10
       })
     })
@@ -36,7 +36,7 @@ describe('Plant routes', () => {
         id: 4,
         name: 'Tree',
         description: 'This is a tall tree',
-        price: 50.0,
+        price: 5000,
         inventory: 5
       })
     })

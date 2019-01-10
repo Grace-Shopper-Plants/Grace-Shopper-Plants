@@ -15,7 +15,7 @@ describe('Plant model', () => {
         name: 'Cattail',
         description:
           'Cattails are upright perennial plants that emerge from creeping rhizomes...',
-        price: 21.5,
+        price: 2150,
         inventory: 10
       })
     })
@@ -33,7 +33,7 @@ describe('Plant model', () => {
       expect(cattail.description).to.be.equal(
         'Cattails are upright perennial plants that emerge from creeping rhizomes...'
       )
-      expect(cattail.price.toString()).to.be.equal('21.50')
+      expect(cattail.price.toString()).to.be.equal('2150')
       expect(cattail.inventory).to.be.equal(10)
     })
   })

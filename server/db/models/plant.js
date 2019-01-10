@@ -15,11 +15,11 @@ const Plant = db.define('plant', {
     defaultValue: 'Information coming soon!'
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      min: 0.0,
-      isDecimal: true
+      min: 0,
+      isDecimal: false
     }
   },
   inventory: {
@@ -29,7 +29,7 @@ const Plant = db.define('plant', {
       min: 0
     }
   },
-  imgUrl: {
+  imageUrl: {
     type: Sequelize.STRING,
     defaultValue:
       'https://i.pinimg.com/originals/a3/fd/14/a3fd14162d2d10b04daf3f59b92c5599.jpg'

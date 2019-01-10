@@ -1,7 +1,7 @@
 import React from 'react'
-import {getPlants} from '../store/plants-reducer'
+import {getPlants} from '../store/plants'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import ProductCard from './ProductCard'
 
 class AllPlants extends React.Component {
   componentDidMount() {
@@ -9,18 +9,14 @@ class AllPlants extends React.Component {
   }
 
   render() {
+    const {plants} = this.props
     return (
-      <div>
+      <div id="all-plants">
         <h1>Please Buy Our Plants! So we don't end up like SEARS :(</h1>
-        {this.props.plants.map(plant => {
+        {plants.map(plant => {
           return (
             <div key={plant.id}>
-              <Link to={`/plants/${plant.id}`}>
-                <h3>{plant.name}</h3>
-                <img src={plant.imgUrl} />
-                <h3>${plant.price}</h3>
-                <h5>{plant.description}</h5>
-              </Link>
+              <ProductCard product={plant} />
             </div>
           )
         })}
@@ -31,7 +27,7 @@ class AllPlants extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    plants: state.plantsReducer.plants
+    plants: state.products.plants
   }
 }
 
