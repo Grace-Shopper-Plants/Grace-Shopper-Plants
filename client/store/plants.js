@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-export const GOT_PLANTS = 'GOT_PLANTS'
-export const GOT_SINGLE_PLANT = 'GOT_SINGLE_PLANT'
+export const SET_PLANTS = 'SET_PLANTS'
+export const SET_SINGLE_PLANT = 'SET_SINGLE_PLANT'
 
 let initialState = {
   plants: [],
@@ -10,14 +10,14 @@ let initialState = {
 
 export const gotPlants = plants => {
   return {
-    type: GOT_PLANTS,
+    type: SET_PLANTS,
     plants
   }
 }
 
 export const gotSinglePlant = plant => {
   return {
-    type: GOT_SINGLE_PLANT,
+    type: SET_SINGLE_PLANT,
     plant
   }
 }
@@ -34,12 +34,12 @@ export const getSinglePlant = id => async dispatch => {
 
 const plantsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GOT_PLANTS:
+    case SET_PLANTS:
       return {
         ...state,
         plants: action.plants
       }
-    case GOT_SINGLE_PLANT:
+    case SET_SINGLE_PLANT:
       return {
         ...state,
         singlePlant: action.plant

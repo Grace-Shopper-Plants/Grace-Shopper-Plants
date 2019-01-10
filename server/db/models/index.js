@@ -1,5 +1,7 @@
 const User = require('./user')
 const Plant = require('./plant')
+const orderNumber = require('./orderNumber')
+const orderHistory = require('./orderHistory')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -16,5 +18,7 @@ const Plant = require('./plant')
  */
 module.exports = {
   User,
-  Plant
+  Plant,
+  orderNumber,
+  orderHistory
 }
