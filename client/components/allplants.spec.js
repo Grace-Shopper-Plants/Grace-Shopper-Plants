@@ -11,7 +11,7 @@ import Adapter from 'enzyme-adapter-react-16'
 enzyme.configure({adapter: new Adapter()})
 
 import AllPlants from './AllPlants'
-import {gotPlants, GOT_PLANTS} from '../store/plants'
+import {gotPlants, SET_PLANTS} from '../store/plants'
 import plantsReducer from '../store/plants'
 
 import axios from 'axios'
@@ -77,7 +77,7 @@ describe('`gotPlants action creator', () => {
   const gotPlantsAction = gotPlants(plants)
 
   it('creates an object with `type` and `plants`', () => {
-    expect(gotPlantsAction.type).to.equal(GOT_PLANTS)
+    expect(gotPlantsAction.type).to.equal(SET_PLANTS)
     expect(gotPlantsAction.plants[1].price).to.equal(20)
   })
 })
@@ -89,7 +89,7 @@ describe('plantsReducer', () => {
   }
 
   const newState = plantsReducer(initialState, {
-    type: GOT_PLANTS,
+    type: SET_PLANTS,
     plants
   })
 

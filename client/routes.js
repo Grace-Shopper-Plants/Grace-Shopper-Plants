@@ -6,6 +6,7 @@ import {Login, Signup, UserHome} from './components'
 import {me} from './store'
 import AllPlants from './components/AllPlants'
 import SinglePlant from './components/SinglePlant'
+import Home from './components/Home'
 
 /**
  * COMPONENT
@@ -21,6 +22,7 @@ class Routes extends React.Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route exact path="/" component={Home} />
         <Route exact path="/plants" component={AllPlants} />
         <Route exact path="/plants/:plantId" component={SinglePlant} />
         <Route path="/login" component={Login} />
@@ -32,7 +34,7 @@ class Routes extends React.Component {
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        <Redirect from="/" to="/plants" />
+        <Redirect from="*" to="/" />
       </Switch>
     )
   }
