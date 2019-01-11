@@ -22,3 +22,8 @@ router.get('/:orderId', async (req, res, next) => {
     next(err)
   }
 })
+
+//Next tasks are:
+/* User can get order history.
+ Once order is submitted, needs to update bought and date */
+router.put('/:orderId')

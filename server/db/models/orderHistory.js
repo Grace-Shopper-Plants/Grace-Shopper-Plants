@@ -11,10 +11,6 @@ const OrderHistory = db.define('orderhistory', {
       isDecimal: false
     }
   },
-  bought: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  },
   soldprice: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -22,10 +18,6 @@ const OrderHistory = db.define('orderhistory', {
       min: 0,
       isDecimal: false
     }
-  },
-  date: {
-    type: Sequelize.DATE,
-    defaultValue: Sequelize.NOW
   }
 })
 

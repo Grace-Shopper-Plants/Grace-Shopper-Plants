@@ -1,6 +1,6 @@
 const User = require('./user')
 const Plant = require('./plant')
-const OrderNumber = require('./orderNumber')
+const Order = require('./order')
 const OrderHistory = require('./orderHistory')
 
 /**
@@ -17,11 +17,11 @@ const OrderHistory = require('./orderHistory')
  * instead of: const User = require('../db/models/user')
  */
 
-User.hasMany(OrderNumber)
-OrderNumber.belongsTo(User)
+User.hasMany(Order)
+Order.belongsTo(User)
 
-OrderNumber.hasMany(OrderHistory)
-OrderHistory.belongsTo(OrderNumber)
+Order.hasMany(OrderHistory)
+OrderHistory.belongsTo(Order)
 
 Plant.hasMany(OrderHistory)
 OrderHistory.belongsTo(Plant)
@@ -29,6 +29,6 @@ OrderHistory.belongsTo(Plant)
 module.exports = {
   User,
   Plant,
-  OrderNumber,
+  Order,
   OrderHistory
 }

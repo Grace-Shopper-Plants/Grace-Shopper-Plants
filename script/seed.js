@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Plant, OrderNumber, OrderHistory} = require('../server/db/models')
+const {User, Plant, Order, OrderHistory} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -149,27 +149,27 @@ async function seed() {
     User.create({email: 'mocha@email.com', password: '321'})
   ])
 
-  const orderNumbers = await Promise.all([
-    OrderNumber.create({userId: 1}),
-    OrderNumber.create({userId: 4}),
-    OrderNumber.create({userId: 5}),
-    OrderNumber.create({userId: 2}),
-    OrderNumber.create({userId: 1}),
-    OrderNumber.create({userId: 4}),
-    OrderNumber.create({userId: 3})
+  const orders = await Promise.all([
+    Order.create({userId: 1}),
+    Order.create({userId: 4}),
+    Order.create({userId: 5}),
+    Order.create({userId: 2}),
+    Order.create({userId: 1}),
+    Order.create({userId: 4}),
+    Order.create({userId: 3})
   ])
 
   const orderHistories = await Promise.all([
     OrderHistory.create({
       plantId: 3,
-      ordernumberId: 1,
+      orderId: 1,
       quantity: 2,
       bought: true,
       soldprice: 124,
       date: '2018-08-09 04:12:02'
     }),
     OrderHistory.create({
-      ordernumberId: 1,
+      orderId: 1,
       plantId: 3,
       quantity: 2,
       bought: true,
@@ -177,7 +177,7 @@ async function seed() {
       date: '2018-08-09 04:12:02'
     }),
     OrderHistory.create({
-      ordernumberId: 1,
+      orderId: 1,
       plantId: 5,
       quantity: 1,
       bought: true,
@@ -185,7 +185,7 @@ async function seed() {
       date: '2018-08-09 04:12:02'
     }),
     OrderHistory.create({
-      ordernumberId: 2,
+      orderId: 2,
       plantId: 3,
       quantity: 4,
       bought: true,
@@ -193,28 +193,28 @@ async function seed() {
       date: '2018-08-09 04:12:02'
     }),
     OrderHistory.create({
-      ordernumberId: 3,
+      orderId: 3,
       plantId: 1,
       quantity: 1,
       bought: false,
       soldprice: 12344
     }),
     OrderHistory.create({
-      ordernumberId: 3,
+      orderId: 3,
       plantId: 2,
       quantity: 10,
       bought: false,
       soldprice: 213124
     }),
     OrderHistory.create({
-      ordernumberId: 3,
+      orderId: 3,
       plantId: 7,
       quantity: 1,
       bought: false,
       soldprice: 32124
     }),
     OrderHistory.create({
-      ordernumberId: 4,
+      orderId: 4,
       plantId: 8,
       quantity: 2,
       bought: true,
@@ -222,7 +222,7 @@ async function seed() {
       date: '2018-09-04 01:05:02'
     }),
     OrderHistory.create({
-      ordernumberId: 4,
+      orderId: 4,
       plantId: 9,
       quantity: 1,
       bought: true,
@@ -230,14 +230,14 @@ async function seed() {
       date: '2018-09-04 01:05:02'
     }),
     OrderHistory.create({
-      ordernumberId: 5,
+      orderId: 5,
       plantId: 2,
       quantity: 1,
       bought: false,
       soldprice: 23124
     }),
     OrderHistory.create({
-      ordernumberId: 6,
+      orderId: 6,
       plantId: 3,
       quantity: 2,
       bought: true,
