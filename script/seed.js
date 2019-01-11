@@ -141,22 +141,58 @@ async function seed() {
   })
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'}),
-    User.create({email: 'bob@email.com', password: '456'}),
-    User.create({email: 'milly@email.com', password: '789'}),
-    User.create({email: 'yoyo@email.com', password: '127'}),
-    User.create({email: 'mocha@email.com', password: '321'})
+    User.create({
+      email: 'cody@email.com',
+      password: '123',
+      cardNumber: 2,
+      cardExpireDate: '2018-09-04 01:05:02',
+      cvc: 232
+    }),
+    User.create({
+      email: 'murphy@email.com',
+      password: '123',
+      cardNumber: 2,
+      cardExpireDate: '2018-09-04 01:05:02',
+      cvc: 232
+    }),
+    User.create({
+      email: 'bob@email.com',
+      password: '456',
+      cardNumber: 2,
+      cardExpireDate: '2018-09-04 01:05:02',
+      cvc: 232
+    }),
+    User.create({
+      email: 'milly@email.com',
+      password: '789',
+      cardNumber: 2,
+      cardExpireDate: '2018-09-04 01:05:02',
+      cvc: 232
+    }),
+    User.create({
+      email: 'yoyo@email.com',
+      password: '127',
+      cardNumber: 4,
+      cardExpireDate: '2018-09-04 01:05:02',
+      cvc: 232
+    }),
+    User.create({
+      email: 'mocha@email.com',
+      password: '321',
+      cardNumber: 4,
+      cardExpireDate: '2018-09-04 01:05:02',
+      cvc: 232
+    })
   ])
 
   const orders = await Promise.all([
-    Order.create({userId: 1}),
-    Order.create({userId: 4}),
-    Order.create({userId: 5}),
-    Order.create({userId: 2}),
-    Order.create({userId: 1}),
-    Order.create({userId: 4}),
-    Order.create({userId: 3})
+    Order.create({userId: 1, bought: true, date: '2018-08-09 04:12:02'}),
+    Order.create({userId: 4, bought: true, date: '2018-08-09 04:12:02'}),
+    Order.create({userId: 5, bought: true, date: '2018-08-09 04:12:02'}),
+    Order.create({userId: 2, bought: true, date: '2018-08-09 04:12:02'}),
+    Order.create({userId: 1, bought: false}),
+    Order.create({userId: 4, bought: true, date: '2018-09-04 01:05:02'}),
+    Order.create({userId: 3, bought: false})
   ])
 
   const orderHistories = await Promise.all([
@@ -164,85 +200,77 @@ async function seed() {
       plantId: 3,
       orderId: 1,
       quantity: 2,
-      bought: true,
-      soldprice: 124,
-      date: '2018-08-09 04:12:02'
+      soldprice: 124
     }),
+
     OrderHistory.create({
       orderId: 1,
       plantId: 3,
       quantity: 2,
-      bought: true,
-      soldprice: 124,
-      date: '2018-08-09 04:12:02'
+      soldprice: 124
     }),
+
     OrderHistory.create({
       orderId: 1,
       plantId: 5,
       quantity: 1,
-      bought: true,
-      soldprice: 1454,
-      date: '2018-08-09 04:12:02'
+      soldprice: 1454
     }),
+
     OrderHistory.create({
       orderId: 2,
       plantId: 3,
       quantity: 4,
-      bought: true,
-      soldprice: 1244,
-      date: '2018-08-09 04:12:02'
+      soldprice: 1244
     }),
+
     OrderHistory.create({
       orderId: 3,
       plantId: 1,
       quantity: 1,
-      bought: false,
       soldprice: 12344
     }),
+
     OrderHistory.create({
       orderId: 3,
       plantId: 2,
       quantity: 10,
-      bought: false,
       soldprice: 213124
     }),
+
     OrderHistory.create({
       orderId: 3,
       plantId: 7,
       quantity: 1,
-      bought: false,
       soldprice: 32124
     }),
+
     OrderHistory.create({
       orderId: 4,
       plantId: 8,
       quantity: 2,
-      bought: true,
-      soldprice: 12124,
-      date: '2018-09-04 01:05:02'
+      soldprice: 12124
     }),
+
     OrderHistory.create({
       orderId: 4,
       plantId: 9,
       quantity: 1,
-      bought: true,
-      soldprice: 1324,
-      date: '2018-09-04 01:05:02'
+      soldprice: 1324
     }),
+
     OrderHistory.create({
       orderId: 5,
       plantId: 2,
       quantity: 1,
-      bought: false,
       soldprice: 23124
     }),
+
     OrderHistory.create({
       orderId: 6,
       plantId: 3,
       quantity: 2,
-      bought: true,
-      soldprice: 12124,
-      date: '2019-01-09 11:05:02'
+      soldprice: 12124
     })
   ])
 
