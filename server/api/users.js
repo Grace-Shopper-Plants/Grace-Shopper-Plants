@@ -2,26 +2,6 @@ const router = require('express').Router()
 const {User, Order, OrderHistory, Plant} = require('../db/models')
 module.exports = router
 
-// router.get('/', async (req, res, next) => {
-//   try {
-//     const users = await User.findAll()
-//     res.json(users)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
-// router.get('/:id', async (req, res, next) => {
-//   try {
-//     if ((req.login && req.id) || req.isAdmin) {
-//       const user = await User.findById(req.params.id)
-//       res.json(user)
-//     }
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
 router.get('/:userId/orders', async (req, res, next) => {
   try {
     const userId = Number(req.params.userId)
@@ -98,36 +78,36 @@ router.get('/:userId/cart', async (req, res, next) => {
   }
 })
 
-router.post('/:userId/cart', async (req, res, next) => {
-  try {
-    const userId = Number(req.params.userId)
-    let cart
-    const quantity = req.body.quantity
-    const plantId = req.body.plantId
+// router.post('/:userId/cart', async (req, res, next) => {
+//   try {
+//     const userId = Number(req.params.userId)
+//     let cart
+//     const quantity = req.body.quantity
+//     const plantId = req.body.plantId
 
-    // if (req.user && req.user.id === user) {
-    cart = await Order.findOne({
-      where: {userId, bought: false}
-    })
+//     // if (req.user && req.user.id === user) {
+//     cart = await Order.findOne({
+//       where: {userId, bought: false}
+//     })
 
-    if (!cart) {
-      cart = Order.create({
-        userId
-      })
-    }
-    const newOrderHistory = OrderHistory.create({
-      orderId: cart.id,
-      plantId,
-      quantity
-    })
-    res.json(newOrderHistory)
-    // } else {
-    //   res.json('ACCESS DENIED')
-    // }
-  } catch (error) {
-    next(error)
-  }
-})
+//     if (!cart) {
+//       cart = Order.create({
+//         userId
+//       })
+//     }
+//     const newOrderHistory = OrderHistory.create({
+//       orderId: cart.id,
+//       plantId,
+//       quantity
+//     })
+//     res.json(newOrderHistory)
+//     // } else {
+//     //   res.json('ACCESS DENIED')
+//     // }
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 // router.put('/', async (req, res, next) => {
 //   try {
@@ -193,6 +173,59 @@ router.post('/:userId/cart', async (req, res, next) => {
 //       attributes: ['id', 'email']
 //     })
 //     res.json(users)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
+// router.post('/', async (req, res, next) => {
+//   //THIS ROUTE IS FOR WHEN A CART IS PURCHASED
+
+//  try {
+//     const user = Number(req.params.userId)
+//     let cart
+//     const quantity = req.body.quantity
+//     const plantId = req.body.plantId
+
+//     if (req.user && req.user.id === user) {
+//       cart = await Order.max('id', {
+//         where: {userId: user, bought: false}
+//       })
+
+//       if (!cart) {
+//         cart = Order.create({
+//           userId: user
+//         })
+//       }
+//       const newOrderHistory = OrderHistory.create({
+//         orderId: cart.id,
+//         plantId,
+//         quantity
+//       })
+//       res.json(newOrderHistory)
+//     } else {
+//       res.json('ACCESS DENIED')
+//     }
+//   } catch (error) {
+//     next(error)
+//   }
+// })
+
+// router.get('/', async (req, res, next) => {
+//   try {
+//     const users = await User.findAll()
+//     res.json(users)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
+// router.get('/:id', async (req, res, next) => {
+//   try {
+//     if ((req.login && req.id) || req.isAdmin) {
+//       const user = await User.findById(req.params.id)
+//       res.json(user)
+//     }
 //   } catch (err) {
 //     next(err)
 //   }
