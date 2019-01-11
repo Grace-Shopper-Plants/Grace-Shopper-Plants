@@ -63,14 +63,12 @@ const plants = [
 ]
 
 // describe('<AllPlants /> component rendering', () => {
-
 //   it('renders a div', () => {
 //     const wrapper = shallow(<AllPlants store={store} />)
 //     console.log("I AM STATE FROM STORE: ", store.getState())
 //     console.log("WRAPPER: ", wrapper)
 //     expect(wrapper.find('h1').text()).to.equal("Please Buy Our Plants! So we don't end up like SEARS :(")
 //   })
-
 // });
 
 describe('`gotPlants action creator', () => {
