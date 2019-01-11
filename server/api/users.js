@@ -86,19 +86,17 @@ router.get('/:userId/cart', async (req, res, next) => {
 //     const plantId = req.body.plantId
 
 //     // if (req.user && req.user.id === user) {
-//     cart = await Order.findOne({
+//     cart = await Order.findOrCreate({
 //       where: {userId, bought: false}
 //     })
 
-//     if (!cart) {
-//       cart = Order.create({
-//         userId
-//       })
-//     }
-//     const newOrderHistory = OrderHistory.create({
-//       orderId: cart.id,
+//     const plantPrice = await Plant.findById(plantId, {attributes: ['price']})
+
+//     const newOrderHistory = await OrderHistory.create({
+//       orderId: cart[0].id,
 //       plantId,
-//       quantity
+//       quantity,
+//       plantPrice
 //     })
 //     res.json(newOrderHistory)
 //     // } else {
