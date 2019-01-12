@@ -146,7 +146,9 @@ async function seed() {
       password: '123',
       cardNumber: 2,
       cardExpireDate: '2018-09-04 01:05:02',
-      cvc: 232
+      cvc: 232,
+      street: 'Wall St',
+      city: 'NYC'
     }),
     User.create({
       email: 'murphy@email.com',
