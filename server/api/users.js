@@ -78,89 +78,96 @@ router.get('/:userId/cart', async (req, res, next) => {
   }
 })
 
-// router.post('/:userId/cart', async(req, res, next) => {
-//   try {
-//     const userId = Number(req.params.userId)
-//     let cart
-//     const quantity = req.body.quantity
-//     const plantId = req.body.plantId
+router.post('/:userId/cart', async (req, res, next) => {
+  try {
+    const userId = Number(req.params.userId)
+    let cart
+    const quantity = req.body.quantity
+    const plantId = req.body.plantId
 
-//     // if (req.user && req.user.id === user) {
-//     cart = await Order.findOrCreate({
-//       where: {userId, bought: false}
-//     })
+    // if (req.user && req.user.id === user) {
+    cart = await Order.findOrCreate({
+      where: {userId, bought: false}
+    })
 
-//     const plantPrice = await Plant.findById(plantId, {attributes: ['price']})
+    const plant = await Plant.findById(plantId)
 
-//     const newOrderHistory = await OrderHistory.create({
-//       orderId: cart[0].id,
-//       plantId,
-//       quantity,
-//       plantPrice
-//     })
-//     res.json(newOrderHistory)
-//     // } else {
-//     //   res.json('ACCESS DENIED')
-//     // }
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+    const newOrderHistory = await OrderHistory.create({
+      orderId: cart[0].id,
+      plantId,
+      soldprice: plant.price,
+      quantity
+    })
+    res.json(newOrderHistory)
+    // } else {
+    //   res.json('ACCESS DENIED')
+    // }
+  } catch (error) {
+    next(error)
+  }
+})
 
-// router.put('/', async (req, res, next) => {
-//   try {
-//     const plantId = req.body.plantId
-//     const quantity = req.body.quantity
+router.put('/:userId/cart', async (req, res, next) => {
+  try {
+    const plantId = req.body.plantId
+    const quantity = req.body.quantity
+    const userId = req.params.userId
 
-//     if (req.user && req.user.id === user) {
-//       const cartToUpdate = await Order.max('id', {
-//         where: {userId: user, bought: false}
-//       })
+    // if (req.user && req.user.id === user) {
 
-//       if (!cartToUpdate) {
-//         res.status(404).json('CART DOES NOT EXIST!')
-//       }
+    const cartToUpdate = await Order.findAll({
+      where: {userId, bought: false}
+    })
 
-//       const cartItemToUpdate = await OrderHistory.findOne({
-//         where: {orderId: cartToUpdate.id, plantId},
-//         include: [{model: Plant}]
-//       })
-//       const updatedItem = await cartItemToUpdate.update({
-//         quantity
-//       })
+    if (!cartToUpdate) {
+      res.status(404).json('CART DOES NOT EXIST!')
+    }
 
-//       res.json(updatedItem)
-//     }
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+    const cartItemToUpdate = await OrderHistory.findOne({
+      where: {orderId: cartToUpdate[cartToUpdate.length - 1].id, plantId},
+      include: [{model: Plant}]
+    })
+    const updatedItem = await cartItemToUpdate.update({
+      quantity
+    })
 
-// router.delete('/', async (req, res, next) => {
-//   try {
-//     const plantId = req.body.plantId
+    res.json(updatedItem)
+    // } else {
+    //   res.json('ACCESS DENIED')
+    // }
+  } catch (error) {
+    next(error)
+  }
+})
 
-//     if (req.user && req.user.id === user) {
-//       const cartToUpdate = await Order.max('id', {
-//         where: {userId: user, bought: false}
-//       })
+router.delete('/:userId/cart', async (req, res, next) => {
+  try {
+    const plantId = req.body.plantId
+    const userId = req.params.userId
 
-//       if (!cartToUpdate) {
-//         res.status(404).json('CART DOES NOT EXIST!')
-//       }
+    // if (req.user && req.user.id === user) {
+    const cartToUpdate = await Order.findAll({
+      where: {userId, bought: false}
+    })
 
-//       const cartItemToDelete = await OrderHistory.findOne({
-//         where: {orderId: cartToUpdate.id, plantId},
-//         include: [{model: Plant}]
-//       })
-//       await cartItemToDelete.destroy()
+    if (!cartToUpdate) {
+      res.status(404).json('CART DOES NOT EXIST!')
+    }
 
-//       res.json('ITEM DELETED!')
-//     }
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+    const cartItemToDelete = await OrderHistory.findOne({
+      where: {orderId: cartToUpdate[cartToUpdate.length - 1].id, plantId},
+      include: [{model: Plant}]
+    })
+    await cartItemToDelete.destroy()
+
+    res.json('ITEM DELETED!')
+    // } else {
+    //   res.json('ACCESS DENIED')
+    // }
+  } catch (error) {
+    next(error)
+  }
+})
 
 // router.get('/', async (req, res, next) => {
 //   try {
@@ -171,6 +178,26 @@ router.get('/:userId/cart', async (req, res, next) => {
 //       attributes: ['id', 'email']
 //     })
 //     res.json(users)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
+// router.get('/', async (req, res, next) => {
+//   try {
+//     const users = await User.findAll()
+//     res.json(users)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
+// router.get('/:id', async (req, res, next) => {
+//   try {
+//     if ((req.login && req.id) || req.isAdmin) {
+//       const user = await User.findById(req.params.id)
+//       res.json(user)
+//     }
 //   } catch (err) {
 //     next(err)
 //   }
@@ -206,25 +233,5 @@ router.get('/:userId/cart', async (req, res, next) => {
 //     }
 //   } catch (error) {
 //     next(error)
-//   }
-// })
-
-// router.get('/', async (req, res, next) => {
-//   try {
-//     const users = await User.findAll()
-//     res.json(users)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
-// router.get('/:id', async (req, res, next) => {
-//   try {
-//     if ((req.login && req.id) || req.isAdmin) {
-//       const user = await User.findById(req.params.id)
-//       res.json(user)
-//     }
-//   } catch (err) {
-//     next(err)
 //   }
 // })
