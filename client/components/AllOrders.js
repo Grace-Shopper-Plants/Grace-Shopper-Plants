@@ -1,7 +1,7 @@
 import React from 'react'
 import {getOrders} from '../store/orders'
 import {connect} from 'react-redux'
-import Link from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 class AllOrders extends React.Component {
   componentDidMount() {
@@ -10,14 +10,17 @@ class AllOrders extends React.Component {
   }
 
   render() {
-    const {orders, user} = this.props
+    const {orders} = this.props
+    if (orders.length === 0) {
+      return null
+    }
     return (
       <div id="all-orders">
         <h1>Order History</h1>
         {orders.map(order => {
           return (
             <div key={order.id}>
-              <Link to={`/user/${user.id}/orders/${order.id}`}>
+              <Link to={`/users/${order.userId}/orders/${order.id}`}>
                 <span>
                   <p>{order.id}</p>
                   <p>{order.date.slice(0, 10)}</p>
@@ -33,8 +36,7 @@ class AllOrders extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    orders: state.orders.orders,
-    user: state.user.user
+    orders: state.orders.orders
   }
 }
 

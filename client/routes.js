@@ -22,28 +22,30 @@ class Routes extends React.Component {
     const {isLoggedIn} = this.props
 
     return (
-      <Switch>
-        {/* Routes placed here are available to all visitors */}
-        <Route exact path="/" component={Home} />
-        <Route exact path="/plants" component={AllPlants} />
-        <Route exact path="/plants/:plantId" component={SinglePlant} />
-        <Route exact path="/user/:userId/orders" component={AllOrders} />
-        <Route
-          exact
-          path="/user/:userId/orders/:orderId"
-          component={SingleOrder}
-        />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-          </Switch>
-        )}
-        {/* Displays our Login component as a fallback */}
-        <Redirect from="*" to="/" />
-      </Switch>
+      <div id="switch">
+        <Switch>
+          {/* Routes placed here are available to all visitors */}
+          <Route exact path="/" component={Home} />
+          <Route exact path="/plants" component={AllPlants} />
+          <Route exact path="/plants/:plantId" component={SinglePlant} />
+          <Route exact path="/users/:userId/orders" component={AllOrders} />
+          <Route
+            exact
+            path="/users/:userId/orders/:orderId"
+            component={SingleOrder}
+          />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          {isLoggedIn && (
+            <Switch>
+              {/* Routes placed here are only available after logging in */}
+              <Route exact path="/home" component={UserHome} />
+            </Switch>
+          )}
+          {/* Displays our Login component as a fallback */}
+          {/* <Redirect from="*" to="/" /> */}
+        </Switch>
+      </div>
     )
   }
 }
