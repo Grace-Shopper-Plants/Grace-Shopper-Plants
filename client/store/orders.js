@@ -23,13 +23,21 @@ export const setSingleOrder = order => {
 }
 
 export const getOrders = userId => async dispatch => {
-  const {data} = await axios.get(`/api/user/${userId}/orders`)
-  dispatch(setOrders(data))
+  try {
+    const {data} = await axios.get(`/api/user/${userId}/orders`)
+    dispatch(setOrders(data))
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 export const getSingleOrder = (userId, orderId) => async dispatch => {
-  const {data} = await axios.get(`/api/user/${userId}/orders/${orderId}`)
-  dispatch(setSingleOrder(data))
+  try {
+    const {data} = await axios.get(`/api/user/${userId}/orders/${orderId}`)
+    dispatch(setSingleOrder(data))
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 const ordersReducer = (state = initialState, action) => {

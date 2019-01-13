@@ -6,6 +6,8 @@ import {Login, Signup, UserHome} from './components'
 import {me} from './store'
 import AllPlants from './components/AllPlants'
 import SinglePlant from './components/SinglePlant'
+import AllOrders from './components/AllOrders'
+import SingleOrder from './components/SingleOrder'
 import Home from './components/Home'
 
 /**
@@ -25,6 +27,12 @@ class Routes extends React.Component {
         <Route exact path="/" component={Home} />
         <Route exact path="/plants" component={AllPlants} />
         <Route exact path="/plants/:plantId" component={SinglePlant} />
+        <Route exact path="/user/:userId/orders" component={AllOrders} />
+        <Route
+          exact
+          path="/user/:userId/orders/:orderId"
+          component={SingleOrder}
+        />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         {isLoggedIn && (

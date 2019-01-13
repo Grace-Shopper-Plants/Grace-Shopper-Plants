@@ -10,11 +10,14 @@ class GetSingleOrder extends React.Component {
   }
 
   render() {
-    const {order, user, product} = this.props
+    const {order} = this.props
+    console.log('This is the order info:', order)
     return (
       <div id="single-order">
         <h1>Order Info</h1>
-        <h3>Order/Product Info</h3>
+        <h3>Order Id: {order.orderId}</h3>
+        <h3>Total Items Ordered: {order.quantity}</h3>
+        <h3>Total Price: {order.soldprice}</h3>
       </div>
     )
   }

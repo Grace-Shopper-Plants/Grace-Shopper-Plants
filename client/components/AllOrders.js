@@ -13,7 +13,7 @@ class AllOrders extends React.Component {
     const {orders, user} = this.props
     return (
       <div id="all-orders">
-        <h1>Order History(</h1>
+        <h1>Order History</h1>
         {orders.map(order => {
           return (
             <div key={order.id}>
@@ -33,7 +33,8 @@ class AllOrders extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    orders: state.orders.orders
+    orders: state.orders.orders,
+    user: state.user.user
   }
 }
 
