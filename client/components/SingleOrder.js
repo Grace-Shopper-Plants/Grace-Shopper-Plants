@@ -11,19 +11,34 @@ class SingleOrder extends React.Component {
 
   render() {
     const order = this.props.order
+
     if (order.length === 0) {
       return null
     }
+
+    let total = 0
+    total += order
+      .map(item => item.quantity * item.plant.price)
+      .reduce((accum, nextVal) => accum + nextVal, 0)
+
     return (
       <div id="single-order">
         <h1>Order Info</h1>
+        <h3>Order Id</h3>
+        <h3>Item Name</h3>
+        <h3>Quantity of Items</h3>
+        <h3>Unit Price</h3>
+        <h3>Price</h3>
         {order.map(item => (
           <div key={item.id}>
-            <h3>Order Id: {item.orderId}</h3>
-            <h3>Total Items Ordered: {item.quantity}</h3>
-            <h3>Total Price: {'$' + item.soldprice / 100}</h3>
+            <h3>{item.orderId}</h3>
+            <h3>{item.plant.name}</h3>
+            <h3>{item.quantity}</h3>
+            <h3>{'$' + item.plant.price / 100}</h3>
+            <h3>{'$' + item.quantity * (item.plant.price / 100)}</h3>
           </div>
         ))}
+        <h3>Total: {'$' + total / 100}</h3>
       </div>
     )
   }
