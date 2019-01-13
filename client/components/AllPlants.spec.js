@@ -71,14 +71,14 @@ const plants = [
 //   })
 // });
 
-describe('`gotPlants action creator', () => {
-  const gotPlantsAction = gotPlants(plants)
+// describe('`gotPlants action creator', () => {
+//   const gotPlantsAction = gotPlants(plants)
 
-  it('creates an object with `type` and `plants`', () => {
-    expect(gotPlantsAction.type).to.equal(SET_PLANTS)
-    expect(gotPlantsAction.plants[1].price).to.equal(20)
-  })
-})
+//   it('creates an object with `type` and `plants`', () => {
+//     expect(gotPlantsAction.type).to.equal(SET_PLANTS)
+//     expect(gotPlantsAction.plants[1].price).to.equal(20)
+//   })
+// })
 
 describe('plantsReducer', () => {
   const initialState = {

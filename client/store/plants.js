@@ -8,14 +8,14 @@ let initialState = {
   singlePlant: {}
 }
 
-export const gotPlants = plants => {
+export const setPlants = plants => {
   return {
     type: SET_PLANTS,
     plants
   }
 }
 
-export const gotSinglePlant = plant => {
+export const setSinglePlant = plant => {
   return {
     type: SET_SINGLE_PLANT,
     plant
@@ -24,12 +24,12 @@ export const gotSinglePlant = plant => {
 
 export const getPlants = () => async dispatch => {
   const {data} = await axios.get('/api/plants')
-  dispatch(gotPlants(data))
+  dispatch(setPlants(data))
 }
 
 export const getSinglePlant = id => async dispatch => {
   const {data} = await axios.get(`/api/plants/${id}`)
-  dispatch(gotSinglePlant(data))
+  dispatch(setSinglePlant(data))
 }
 
 const plantsReducer = (state = initialState, action) => {
