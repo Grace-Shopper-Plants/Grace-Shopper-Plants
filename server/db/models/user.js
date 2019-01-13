@@ -3,13 +3,20 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  name: {
+    type: Sequelize.STRING
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: Sequelize.STRING,
+    allowNull: false,
     // Making `.password` act like a func hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
@@ -26,6 +33,41 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  houseNumber: {
+    type: Sequelize.STRING
+  },
+  street: {
+    type: Sequelize.STRING
+  },
+  city: {
+    type: Sequelize.STRING
+  },
+  state: {
+    type: Sequelize.STRING
+  },
+  zipCode: {
+    type: Sequelize.STRING
+  },
+  cardNumber: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
+  cardExpireDate: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    validate: {
+      isDate: true
+    }
+  },
+  cvc: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
   }
 })
 
