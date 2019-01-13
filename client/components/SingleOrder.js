@@ -2,7 +2,7 @@ import React from 'react'
 import {getSingleOrder} from '../store/orders'
 import {connect} from 'react-redux'
 
-class GetSingleOrder extends React.Component {
+class SingleOrder extends React.Component {
   componentDidMount() {
     const orderId = this.props.match.params.orderId
     const userId = this.props.match.params.userId
@@ -10,14 +10,20 @@ class GetSingleOrder extends React.Component {
   }
 
   render() {
-    const {order} = this.props
-    console.log('This is the order info:', order)
+    const order = this.props.order
+    if (order.length === 0) {
+      return null
+    }
     return (
       <div id="single-order">
         <h1>Order Info</h1>
-        <h3>Order Id: {order.orderId}</h3>
-        <h3>Total Items Ordered: {order.quantity}</h3>
-        <h3>Total Price: {order.soldprice}</h3>
+        {order.map(item => (
+          <div key={item.id}>
+            <h3>Order Id: {item.orderId}</h3>
+            <h3>Total Items Ordered: {item.quantity}</h3>
+            <h3>Total Price: {'$' + item.soldprice / 100}</h3>
+          </div>
+        ))}
       </div>
     )
   }
@@ -36,4 +42,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GetSingleOrder)
+export default connect(mapStateToProps, mapDispatchToProps)(SingleOrder)

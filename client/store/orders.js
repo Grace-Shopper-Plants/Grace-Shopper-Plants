@@ -5,7 +5,7 @@ export const SET_SINGLE_ORDER = 'SET_SINGLE_ORDER'
 
 let initialState = {
   orders: [],
-  singleOrder: {}
+  singleOrder: []
 }
 
 export const setOrders = orders => {
@@ -24,7 +24,7 @@ export const setSingleOrder = order => {
 
 export const getOrders = userId => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/user/${userId}/orders`)
+    const {data} = await axios.get(`/api/users/${userId}/orders`)
     dispatch(setOrders(data))
   } catch (err) {
     console.error(err)
@@ -33,7 +33,7 @@ export const getOrders = userId => async dispatch => {
 
 export const getSingleOrder = (userId, orderId) => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/user/${userId}/orders/${orderId}`)
+    const {data} = await axios.get(`/api/users/${userId}/orders/${orderId}`)
     dispatch(setSingleOrder(data))
   } catch (err) {
     console.error(err)

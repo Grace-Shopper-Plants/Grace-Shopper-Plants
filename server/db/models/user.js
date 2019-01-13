@@ -50,19 +50,16 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   cardNumber: {
-    type: Sequelize.INTEGER,
-    allowNull: false
+    type: Sequelize.INTEGER
   },
   cardExpireDate: {
     type: Sequelize.DATE,
-    allowNull: false,
     validate: {
       isDate: true
     }
   },
   cvc: {
-    type: Sequelize.INTEGER,
-    allowNull: false
+    type: Sequelize.INTEGER
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
