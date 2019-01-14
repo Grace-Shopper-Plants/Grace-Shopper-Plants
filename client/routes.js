@@ -11,6 +11,7 @@ import SingleOrder from './components/SingleOrder'
 import Home from './components/Home'
 import Profile from './components/Profile'
 import Cart from './components/Cart'
+import Checkout from './components/Checkout'
 
 /**
  * COMPONENT
@@ -32,6 +33,7 @@ class Routes extends React.Component {
           <Route exact path="/plants/:plantId" component={SinglePlant} />
           <Route exact path="/users/:userId/orders" component={AllOrders} />
           <Route exact path="/users/:userId/cart" component={Cart} />
+          <Route exact path="/users/:userId/checkout" component={Checkout} />
           <Route
             exact
             path="/users/:userId/orders/:orderId"
