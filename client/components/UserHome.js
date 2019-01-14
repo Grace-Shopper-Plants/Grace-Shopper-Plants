@@ -15,9 +15,12 @@ class UserHome extends React.Component {
 
   render() {
     const {user} = this.props
+    console.log(user)
     return (
       <div>
-        <h3>Welcome, {user.email}</h3>
+        <h3>
+          Welcome back, {user.name[0].toUpperCase() + user.name.slice(1)}!
+        </h3>
         {/* <Link to="/profile">
           <button type="button">PROFILE</button>
         </Link> */}
