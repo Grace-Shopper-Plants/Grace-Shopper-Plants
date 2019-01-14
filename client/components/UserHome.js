@@ -15,7 +15,6 @@ class UserHome extends React.Component {
 
   render() {
     const {user} = this.props
-    console.log(user)
     return (
       <div>
         <h3>Welcome, {user.email}</h3>
