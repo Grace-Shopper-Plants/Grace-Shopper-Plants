@@ -42,20 +42,19 @@ export const getUserCart = userId => async dispatch => {
     const {data} = await axios.get(`/api/users/${userId}/cart`)
     dispatch(setCart(data))
   } catch (err) {
-    console.err(err)
+    console.error(err)
   }
 }
 
 export const addToUserCart = (plantId, userId, quantity) => async dispatch => {
   try {
-    const {data} = await axios.post(
-      `/api/users/${userId}/cart`,
-      plantId,
-      quantity
-    )
+    const {data} = await axios.post(`/api/users/${userId}/cart`, {
+      quantity,
+      plantId
+    })
     dispatch(addItem(data))
   } catch (err) {
-    console.err(err)
+    console.error(err)
   }
 }
 
@@ -64,7 +63,7 @@ export const deleteUserCartItem = userId => async dispatch => {
     const {data} = await axios.delete(`/api/users/${userId}/cart`)
     dispatch(deleteItem(data))
   } catch (err) {
-    console.err(err)
+    console.error(err)
   }
 }
 
@@ -91,11 +90,11 @@ const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_CART:
       return {
-        cart: [action.cart]
+        cart: action.cart
       }
     case ADD_ITEM:
       return {
-        cart: [state.cart, action.item]
+        cart: [...state.cart, action.item]
       }
     case DELETE_ITEM:
       return {
