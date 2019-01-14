@@ -45,27 +45,27 @@ router.get('/:userId/profile', async (req, res, next) => {
 })
 
 // route for a guest signing up as a user
-router.post('/signup', async (req, res, next) => {
-  try {
-    const userInfo = {
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-      houseNumber: req.body.houseNumber,
-      street: req.body.street,
-      city: req.body.city,
-      state: req.body.state,
-      zipcode: req.body.zipCode,
-      cardNumber: req.body.cardNumber,
-      cardExpireDate: req.body.cardExpireDate,
-      cvc: req.body.cvc
-    }
-    const user = await User.create(userInfo)
-    res.json(user)
-  } catch (err) {
-    next(err)
-  }
-})
+// router.post('/signup', async (req, res, next) => {
+//   try {
+//     const userInfo = {
+//       name: req.body.name,
+//       email: req.body.email,
+//       password: req.body.password,
+//       houseNumber: req.body.houseNumber,
+//       street: req.body.street,
+//       city: req.body.city,
+//       state: req.body.state,
+//       zipcode: req.body.zipCode,
+//       cardNumber: req.body.cardNumber,
+//       cardExpireDate: req.body.cardExpireDate,
+//       cvc: req.body.cvc
+//     }
+//     const user = await User.create(userInfo)
+//     res.json(user)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
 
 // route for a user updating their profile
 router.put('/:userId/profile', async (req, res, next) => {

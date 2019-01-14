@@ -18,12 +18,13 @@ class UserHome extends React.Component {
     console.log(user)
     return (
       <div>
-        <h3>
-          Welcome back, {user.name[0].toUpperCase() + user.name.slice(1)}!
-        </h3>
-        {/* <Link to="/profile">
+        <h3>Welcome, {user.email}</h3>
+        <Link to={`/users/${user.id}/profile`}>
+          {/* <h3>
+            Welcome back, {user.name[0].toUpperCase() + user.name.slice(1)}!
+          </h3> */}
           <button type="button">PROFILE</button>
-        </Link> */}
+        </Link>
         <Link to={`/users/${user.id}/orders`}>
           <button type="button">ORDERS</button>
         </Link>

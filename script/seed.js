@@ -152,6 +152,7 @@ async function seed() {
     }),
     User.create({
       email: 'murphy@email.com',
+      name: 'Murphy Smith',
       password: '123',
       cardNumber: 2,
       cardExpireDate: '2018-09-04 01:05:02',
@@ -159,6 +160,7 @@ async function seed() {
     }),
     User.create({
       email: 'bob@email.com',
+      name: 'Bob Dole',
       password: '456',
       cardNumber: 2,
       cardExpireDate: '2018-09-04 01:05:02',
@@ -173,6 +175,7 @@ async function seed() {
     }),
     User.create({
       email: 'yoyo@email.com',
+      name: 'Yo Yo',
       password: '127',
       cardNumber: 4,
       cardExpireDate: '2018-09-04 01:05:02',
