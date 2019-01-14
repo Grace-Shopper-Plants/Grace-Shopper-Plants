@@ -30,7 +30,7 @@ class Routes extends React.Component {
           <Route exact path="/plants" component={AllPlants} />
           <Route exact path="/plants/:plantId" component={SinglePlant} />
           <Route exact path="/users/:userId/orders" component={AllOrders} />
-          <Route exact path="/cart" component={Cart} />
+          <Route exact path="/users/:userId/cart" component={Cart} />
           <Route
             exact
             path="/users/:userId/orders/:orderId"
