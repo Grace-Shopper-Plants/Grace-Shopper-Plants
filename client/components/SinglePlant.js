@@ -14,7 +14,6 @@ class SinglePlant extends React.Component {
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
-    console.log(`We're in a component!`)
     const plantId = this.props.match.params.plantId
     this.props.getSinglePlant(plantId)
   }
@@ -25,10 +24,6 @@ class SinglePlant extends React.Component {
 
   handleClick() {
     const {plant, user} = this.props
-    console.log(`These are all my fooken props: `, this.props)
-    console.log('This is the plant', plant)
-    console.log('This is the user: ', user)
-    console.log('This is the user id: ', user.id)
     // this.props.addToUserCart(plant.id, user.id, this.state.quantity)
     if (user.id) {
       this.props.addToUserCart(plant.id, user.id, this.state.quantity)
