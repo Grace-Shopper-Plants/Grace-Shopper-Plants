@@ -1,17 +1,33 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {
+  Card,
+  CardImg,
+  CardSubtitle,
+  CardText,
+  CardTitle,
+  CardBody,
+  Button,
+  Row,
+  Col
+} from 'reactstrap'
+import plantsReducer from '../store/plants'
 
 const ProductCard = props => {
   const {product} = props
   return (
-    <div className="product-card">
+    <Col sm="4">
       <Link to={`/plants/${product.id}`}>
-        <h3>{product.name}</h3>
-        <img src={product.imageUrl} />
-        <h3>${(product.price / 100).toFixed(2)}</h3>
-        <h5>{product.description}</h5>
+        <Card>
+          <CardImg width="20%" src={product.imageUrl} className="card-image" />
+          <CardBody className="text-center">
+            <CardTitle>{product.name}</CardTitle>
+            <CardSubtitle>${(product.price / 100).toFixed(2)}</CardSubtitle>
+            <CardText>{product.description}</CardText>
+          </CardBody>
+        </Card>
       </Link>
-    </div>
+    </Col>
   )
 }
 
