@@ -28,7 +28,7 @@ class Checkout extends React.Component {
         <Row>
           <Col>
             {!cart.length ? (
-              <h1>Your Cart is Empty</h1>
+              <h1>Your Cart is Empty!</h1>
             ) : (
               <div id="cart">
                 <Table striped>
