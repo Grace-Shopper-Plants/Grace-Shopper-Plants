@@ -1,13 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getUserCart, getPurchasedCart} from '../store/cart'
+import {me} from '../store/user'
 import {Container, Row, Col, Table, Media, Button} from 'reactstrap'
 import {Link} from 'react-router-dom'
 
 class Checkout extends React.Component {
   componentDidMount() {
-    const userId = this.props.match.params.userId
     this.props.getUserCart(userId)
+    this.props.getUserInfo(userId)
+    const userId = this.props.user.id
   }
 
   handleClick() {
@@ -37,7 +39,6 @@ class Checkout extends React.Component {
                       <th>Item Image</th>
                       <th>Item Name</th>
                       <th>Quantity of Items</th>
-                      <th>Remove Item</th>
                       <th>Unit Price</th>
                       <th>Price</th>
                     </tr>
@@ -54,16 +55,6 @@ class Checkout extends React.Component {
                         </td>
                         <td>{item.plant.name}</td>
                         <td>{item.quantity}</td>
-                        <td>
-                          <select value={item.quantity}>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                          </select>
-                          <button type="button">Remove Item</button>
-                        </td>
                         <td>{'$' + (item.plant.price / 100).toFixed(2)}</td>
                         <td>
                           {'$' +
@@ -100,7 +91,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getUserCart: userId => dispatch(getUserCart(userId)),
-    getPurchasedCart: userId => dispatch(getPurchasedCart(userId))
+    getPurchasedCart: userId => dispatch(getPurchasedCart(userId)),
+    getUserInfo: userId => dispatch(me(userId))
   }
 }
 
