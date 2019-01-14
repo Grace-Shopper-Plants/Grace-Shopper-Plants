@@ -1,6 +1,7 @@
 import React from 'react'
 import {getSingleOrder} from '../store/orders'
 import {connect} from 'react-redux'
+import {Media, Table, Container, Row, Col} from 'reactstrap'
 
 class SingleOrder extends React.Component {
   componentDidMount() {
@@ -22,24 +23,45 @@ class SingleOrder extends React.Component {
       .reduce((accum, nextVal) => accum + nextVal, 0)
 
     return (
-      <div id="single-order">
-        <h1>Order Info</h1>
-        <h3>Order Id</h3>
-        <h3>Item Name</h3>
-        <h3>Quantity of Items</h3>
-        <h3>Unit Price</h3>
-        <h3>Price</h3>
-        {order.map(item => (
-          <div key={item.id}>
-            <h3>{item.orderId}</h3>
-            <h3>{item.plant.name}</h3>
-            <h3>{item.quantity}</h3>
-            <h3>{'$' + item.plant.price / 100}</h3>
-            <h3>{'$' + item.quantity * (item.plant.price / 100)}</h3>
-          </div>
-        ))}
-        <h3>Total: {'$' + total / 100}</h3>
-      </div>
+      <Container fluid>
+        <Row>
+          <Col>
+            <h1>Order Info</h1>
+            <h2>Order Number: {order[0].id}</h2>
+            <Table striped>
+              <thead>
+                <tr>
+                  <th>Item Image</th>
+                  <th>Item Name</th>
+                  <th>Quantity of Items</th>
+                  <th>Unit Price</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                {order.map(item => (
+                  <tr key={item.id}>
+                    <td>
+                      <Media>
+                        <Media left href="#">
+                          <Media object src={item.plant.imageUrl} />
+                        </Media>
+                      </Media>
+                    </td>
+                    <td>{item.plant.name}</td>
+                    <td>{item.quantity}</td>
+                    <td>{'$' + item.plant.price / 100}</td>
+                    <td>{'$' + item.quantity * (item.plant.price / 100)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            <h4 className="float-right">
+              <strong>Total: {'$' + total / 100}</strong>
+            </h4>
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }

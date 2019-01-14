@@ -2,6 +2,7 @@ import React from 'react'
 import {getPlants} from '../store/plants'
 import {connect} from 'react-redux'
 import ProductCard from './ProductCard'
+import {Container, Row} from 'reactstrap'
 
 class AllPlants extends React.Component {
   componentDidMount() {
@@ -13,13 +14,13 @@ class AllPlants extends React.Component {
     return (
       <div id="all-plants">
         <h1>Please Buy Our Plants! So we don't end up like SEARS :(</h1>
-        {plants.map(plant => {
-          return (
-            <div key={plant.id}>
-              <ProductCard product={plant} />
-            </div>
-          )
-        })}
+        <Container fluid>
+          <Row>
+            {plants.map(plant => {
+              return <ProductCard product={plant} key={plant.id} />
+            })}
+          </Row>
+        </Container>
       </div>
     )
   }
