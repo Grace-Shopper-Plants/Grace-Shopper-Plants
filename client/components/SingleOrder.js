@@ -27,7 +27,7 @@ class SingleOrder extends React.Component {
         <Row>
           <Col>
             <h1>Order Info</h1>
-            <h2>Order Number: {order[0].id}</h2>
+            <h2>Order Number: {order[0].orderId}</h2>
             <Table striped>
               <thead>
                 <tr>
