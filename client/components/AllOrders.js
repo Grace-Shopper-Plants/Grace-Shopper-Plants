@@ -2,6 +2,7 @@ import React from 'react'
 import {getOrders} from '../store/orders'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {Button, Table, Container, Row, Col} from 'reactstrap'
 
 class AllOrders extends React.Component {
   componentDidMount() {
@@ -17,18 +18,41 @@ class AllOrders extends React.Component {
     return (
       <div id="all-orders">
         <h1>Order History</h1>
-        {orders.map(order => {
-          return (
-            <div key={order.id}>
-              <Link to={`/users/${order.userId}/orders/${order.id}`}>
-                <span>
-                  <p>{order.id}</p>
-                  <p>{order.date.slice(0, 10)}</p>
-                </span>
-              </Link>
-            </div>
-          )
-        })}
+        <Container fluid>
+          <Row>
+            <Col>
+              <Table hover>
+                <thead>
+                  <tr>
+                    <th>Order Number</th>
+                    <th>Order Date</th>
+                    <th>Order Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map(order => {
+                    return (
+                      // <Link to={`/users/${order.userId}/orders/${order.id}`}>
+                      <tr>
+                        {/* <th scope="row"></th> */}
+                        <td>{order.id}</td>
+                        <td>{order.date.slice(0, 10)}</td>
+                        <td>
+                          <Link
+                            to={`/users/${order.userId}/orders/${order.id}`}
+                          >
+                            <Button>View Details</Button>
+                          </Link>
+                        </td>
+                      </tr>
+                      // </Link>
+                    )
+                  })}
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+        </Container>
       </div>
     )
   }

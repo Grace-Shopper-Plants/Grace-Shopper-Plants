@@ -18,9 +18,9 @@ class UserHome extends React.Component {
     return (
       <div>
         <h3>Welcome, {user.email}</h3>
-        <Link to="/plants">
-          <button type="button">SHOP</button>
-        </Link>
+        {/* <Link to="/profile">
+          <button type="button">PROFILE</button>
+        </Link> */}
         <Link to={`/users/${user.id}/orders`}>
           <button type="button">ORDERS</button>
         </Link>

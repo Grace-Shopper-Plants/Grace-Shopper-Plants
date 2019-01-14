@@ -2,6 +2,18 @@ import React from 'react'
 import {getSinglePlant} from '../store/plants'
 import {addToUserCart} from '../store/cart'
 import {connect} from 'react-redux'
+import {
+  Container,
+  Card,
+  CardImg,
+  CardSubtitle,
+  CardText,
+  CardTitle,
+  CardBody,
+  Button,
+  Row,
+  Col
+} from 'reactstrap'
 
 class SinglePlant extends React.Component {
   constructor() {
@@ -41,31 +53,45 @@ class SinglePlant extends React.Component {
 
   render() {
     return (
-      <div id="single-plant">
-        <h1>Please buy me, I need a new home! They don't feed me :(</h1>
-        <h3>{this.props.plant.name}</h3>
-        <h3>${(this.props.plant.price / 100).toFixed(2)}</h3>
-        <img src={this.props.plant.imageUrl} />
-        <h5>{this.props.plant.description}</h5>
-        <h5>Quantity:</h5>
-        <form>
-          <select
-            className="quantity-dropdown"
-            value={this.state.quantity}
-            onChange={this.handleChange}
-          >
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-          <button type="button" onClick={this.handleClick}>
-            Add to Cart
-          </button>
-        </form>
-      </div>
+      <Container fluid>
+        <Row>
+          <Col className="text-center">
+            <Card>
+              {/* <h1>Please buy me, I need a new home! They don't feed me :(</h1> */}
+              <h1>{this.props.plant.name}</h1>
+              <Row>
+                <Col>
+                  <CardImg src={this.props.plant.imageUrl} />
+                </Col>
+                <Col>
+                  <h5>{this.props.plant.description}</h5>
+                  <CardSubtitle>
+                    ${(this.props.plant.price / 100).toFixed(2)}
+                  </CardSubtitle>
+                  <h5>Quantity:</h5>
+                  <form>
+                    <select
+                      className="quantity-dropdown"
+                      value={this.state.quantity}
+                      onChange={this.handleChange}
+                    >
+                      <option>0</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                    <button type="button" onClick={this.handleClick}>
+                      Add to Cart
+                    </button>
+                  </form>
+                </Col>
+              </Row>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }
