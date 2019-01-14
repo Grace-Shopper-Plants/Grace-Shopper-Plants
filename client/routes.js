@@ -9,6 +9,7 @@ import SinglePlant from './components/SinglePlant'
 import AllOrders from './components/AllOrders'
 import SingleOrder from './components/SingleOrder'
 import Home from './components/Home'
+import Profile from './components/Profile'
 
 /**
  * COMPONENT
@@ -40,6 +41,7 @@ class Routes extends React.Component {
             <Switch>
               {/* Routes placed here are only available after logging in */}
               <Route exact path="/home" component={UserHome} />
+              <Route exact path="/users/:userId/profile" component={Profile} />
             </Switch>
           )}
           {/* Displays our Login component as a fallback */}
