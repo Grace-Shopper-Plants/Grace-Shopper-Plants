@@ -3,6 +3,7 @@ import axios from 'axios'
 export const SET_CART = 'SET_CART'
 export const ADD_ITEM = 'ADD_ITEM'
 export const DELETE_ITEM = 'DELETE_ITEM'
+export const PURCHASE_CART = 'PURCHASE_CART'
 
 let initialState = {
   cart: []
@@ -26,6 +27,13 @@ export const deleteItem = itemId => {
   return {
     type: DELETE_ITEM,
     itemId
+  }
+}
+
+export const purchaseCart = cart => {
+  return {
+    type: PURCHASE_CART,
+    cart
   }
 }
 
@@ -60,6 +68,15 @@ export const deleteUserCartItem = userId => async dispatch => {
   }
 }
 
+export const getPurchasedCart = userId => async dispatch => {
+  try {
+    const {data} = await axios.delete(`/api/users/${userId}/cart/purchase`)
+    dispatch(purchaseCart(data))
+  } catch (err) {
+    console.err(err)
+  }
+}
+
 // export const getNonUserCart = () => async dispatch => {
 //     try {
 //         const {data} = await localStorage.get()
@@ -83,6 +100,10 @@ const cartReducer = (state = initialState, action) => {
     case DELETE_ITEM:
       return {
         cart: [state.cart].filter(item => item.id !== action.itemId)
+      }
+    case PURCHASE_CART:
+      return {
+        cart: [action.cart]
       }
     default:
       return state
