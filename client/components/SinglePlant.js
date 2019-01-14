@@ -23,19 +23,20 @@ class SinglePlant extends React.Component {
   }
 
   handleClick() {
-    const {plant} = this.props
+    const {plant, user} = this.props
     console.log('This is the plant:', plant)
     if (this.props.user.id) {
       // const quantity = this.state.quantity
       // let i = 1
       // while (i < quantity) {
-      this.props.addToUserCart(this.props.plant)
+      this.props.addToUserCart(plant.id, user.id, this.state.quantity)
       // i++
       // }
-    } else {
-      localStorage.setItem('quantity:', this.state.quantity)
-      localStorage.setItem('')
     }
+    // else {
+    //   localStorage.setItem('quantity:', this.state.quantity)
+    //   localStorage.setItem('')
+    // }
   }
 
   render() {

@@ -42,8 +42,8 @@ export const addToUserCart = (plantId, userId, quantity) => async dispatch => {
   try {
     const {data} = await axios.post(
       `/api/users/${userId}/cart`,
-      plantId,
-      quantity
+      quantity,
+      plantId
     )
     dispatch(addItem(data))
   } catch (err) {
@@ -78,7 +78,7 @@ const cartReducer = (state = initialState, action) => {
       }
     case ADD_ITEM:
       return {
-        cart: [state.cart, action.item]
+        cart: [...state.cart, action.item]
       }
     case DELETE_ITEM:
       return {
