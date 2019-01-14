@@ -21,9 +21,6 @@ class Cart extends React.Component {
   render() {
     const {cart} = this.props
 
-    console.log(cart)
-    console.log('This is the plant:', cart[0])
-
     let total = 0
     total += cart
       .map(item => item.quantity * item.plant.price)
