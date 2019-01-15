@@ -28,10 +28,9 @@ class SinglePlant extends React.Component {
   handleClick() {
     const {plant, user} = this.props
     if (user.id) {
-      this.props.addToCart(plant.id, user.id, this.state.quantity)
+      this.props.addToCart(plant.id, user.id, this.state.quantity, null)
     } else {
-      localStorage.setItem('cart', JSON.stringify(this.state))
-      this.props.addToCart()
+      this.props.addToCart(null, null, null, this.state)
     }
   }
 
@@ -90,8 +89,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getSinglePlant: id => dispatch(getSinglePlant(id)),
-    addToCart: (plantId, userId, quantity) =>
-      dispatch(addToCart(plantId, userId, quantity))
+    addToCart: (plantId, userId, quantity, cartItem) =>
+      dispatch(addToCart(plantId, userId, quantity, cartItem))
   }
 }
 

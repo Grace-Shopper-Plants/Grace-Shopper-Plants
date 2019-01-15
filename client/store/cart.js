@@ -9,8 +9,6 @@ let initialState = {
   cart: []
 }
 
-const localState = []
-
 export const setCart = cart => {
   return {
     type: SET_CART,
@@ -45,7 +43,7 @@ export const getCart = (userId = null) => async dispatch => {
       const {data} = await axios.get(`/api/users/${userId}/cart`)
       dispatch(setCart(data))
     } else {
-      dispatch(setCart(localState))
+      dispatch(setCart(JSON.parse(localStorage.getItem('cart'))))
     }
   } catch (err) {
     console.error(err)
@@ -55,7 +53,8 @@ export const getCart = (userId = null) => async dispatch => {
 export const addToCart = (
   plantId = null,
   userId = null,
-  quantity = null
+  quantity = null,
+  cartItem = null
 ) => async dispatch => {
   try {
     if (userId) {
@@ -65,8 +64,18 @@ export const addToCart = (
       })
       dispatch(addItem(data))
     } else {
-      localState.push(JSON.parse(localStorage.getItem('cart')))
-      dispatch(addItem(JSON.parse(localStorage.getItem('cart'))))
+      if (!localStorage.getItem('cart')) {
+        localStorage.setItem('cart', JSON.stringify([cartItem]))
+      } else {
+        localStorage.setItem(
+          'cart',
+          JSON.stringify([
+            ...JSON.parse(localStorage.getItem('cart')),
+            cartItem
+          ])
+        )
+      }
+      dispatch(addItem(cartItem))
     }
   } catch (err) {
     console.error(err)
