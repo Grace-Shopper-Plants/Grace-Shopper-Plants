@@ -12,7 +12,6 @@ import Home from './components/Home'
 import Profile from './components/Profile'
 import Cart from './components/Cart'
 import Checkout from './components/Checkout'
-import {getUserCart} from './store/cart'
 
 /**
  * COMPONENT
@@ -24,8 +23,6 @@ class Routes extends React.Component {
 
   render() {
     const {isLoggedIn} = this.props
-    //this.props.loadUserCart(this.props.user.id)
-    // console.log('render props log', this.props)
 
     return (
       <div id="switch">
@@ -63,13 +60,10 @@ class Routes extends React.Component {
  * CONTAINER
  */
 const mapState = state => {
-  console.log('stateuser', state.user)
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id,
-    user: state.user,
-    cart: state.cart.cart
+    isLoggedIn: !!state.user.id
   }
 }
 
@@ -77,8 +71,7 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
-    },
-    loadUserCart: id => dispatch(getUserCart(id))
+    }
   }
 }
 

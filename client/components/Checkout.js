@@ -1,19 +1,23 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getUserCart, getPurchasedCart} from '../store/cart'
-import {Container, Row, Col, Table, Media, Button} from 'reactstrap'
+import {
+  Container,
+  Row,
+  Col,
+  Table,
+  Media,
+  Button,
+  FormGroup,
+  Label,
+  Input
+} from 'reactstrap'
 import {Link} from 'react-router-dom'
 
 class Checkout extends React.Component {
-  componentDidMount() {
-    console.log('check props', this.props)
-  }
-
-  handleClick() {
-    this.props.getPurchasedCart(this.props.user.id)
-  }
-
   render() {
+    console.log('rendercart', this.props.cart)
+    if (!this.props.cart.length) this.props.loadUserCart(this.props.user.id)
     const {cart} = this.props
     let total = 0
     total += cart
@@ -64,13 +68,71 @@ class Checkout extends React.Component {
                 <h4 className="align-center">
                   <strong>Total: {'$' + (total / 100).toFixed(2)}</strong>
                 </h4>
-                <Link to="/confirmation">
-                  <Button onClick={this.handleClick()}>PURCHASE</Button>
-                </Link>
               </div>
             )}
           </Col>
         </Row>
+        <h3 id="shippingInfo">Shipping Info</h3>
+        <Col md={6}>
+          <FormGroup>
+            <Label for="address">Address</Label>
+            <Input
+              type="text"
+              name="address"
+              id="address"
+              placeholder="Enter Address Here"
+            />
+          </FormGroup>
+        </Col>
+
+        <Col md={3}>
+          <FormGroup>
+            <Label for="addressNumber">Apartment/Studio/Floor Number</Label>
+            <Input
+              type="text"
+              name="addressNumber"
+              id="addressNumber"
+              placeholder="Enter Apartment, Studio, or Floor Here"
+            />
+          </FormGroup>
+        </Col>
+
+        <Col md={2}>
+          <FormGroup>
+            <Label for="city">City</Label>
+            <Input type="text" name="city" id="city" />
+          </FormGroup>
+        </Col>
+
+        <Col md={1}>
+          <FormGroup>
+            <Label for="state">State</Label>
+            <Input type="text" name="state" id="state" />
+          </FormGroup>
+        </Col>
+
+        <Col md={2}>
+          <FormGroup>
+            <Label for="zip">Zip</Label>
+            <Input type="text" name="zip" id="zip" />
+          </FormGroup>
+        </Col>
+
+        <Col md={6}>
+          <FormGroup>
+            <Label for="cardNumber">Credit Card Number</Label>
+            <Input
+              type="text"
+              name="cardNumber"
+              id="cardNumber"
+              placeholder="Enter Credit Card Number Here"
+            />
+          </FormGroup>
+        </Col>
+
+        <Link to="/confirmation">
+          <Button>PURCHASE</Button>
+        </Link>
       </Container>
     )
   }
@@ -85,8 +147,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUserCart: userId => dispatch(getUserCart(userId)),
-    getPurchasedCart: userId => dispatch(getPurchasedCart(userId))
+    loadUserCart: userId => dispatch(getUserCart(userId))
   }
 }
 

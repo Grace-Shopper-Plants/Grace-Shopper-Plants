@@ -69,7 +69,7 @@ export const deleteUserCartItem = userId => async dispatch => {
 
 export const getPurchasedCart = userId => async dispatch => {
   try {
-    const {data} = await axios.delete(`/api/users/${userId}/cart/purchase`)
+    const {data} = await axios.put(`/api/users/${userId}/cart/purchase`)
     dispatch(purchaseCart(data))
   } catch (err) {
     console.error(err)
