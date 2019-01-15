@@ -6,16 +6,15 @@ import {Link} from 'react-router-dom'
 
 class Checkout extends React.Component {
   componentDidMount() {
-    this.props.getUserCart(this.props.user.Id)
+    console.log('check props', this.props)
   }
 
   handleClick() {
-    this.props.getPurchasedCart(this.props.user.Id)
+    this.props.getPurchasedCart(this.props.user.id)
   }
 
   render() {
     const {cart} = this.props
-
     let total = 0
     total += cart
       .map(item => item.quantity * item.plant.price)
@@ -80,7 +79,7 @@ class Checkout extends React.Component {
 const mapStateToProps = state => {
   return {
     cart: state.cart.cart,
-    user: state.user.user
+    user: state.user
   }
 }
 
