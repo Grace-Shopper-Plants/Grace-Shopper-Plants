@@ -15,8 +15,11 @@ import {
 import {Link} from 'react-router-dom'
 
 class Checkout extends React.Component {
+  handleClick() {
+    //this.props.getPurchasedCart(this.props.user.id)
+  }
+
   render() {
-    console.log('rendercart', this.props.cart)
     if (!this.props.cart.length) this.props.loadUserCart(this.props.user.id)
     const {cart} = this.props
     let total = 0
@@ -29,7 +32,7 @@ class Checkout extends React.Component {
         <Row>
           <Col>
             {!cart.length ? (
-              <h1>Your Cart is Empty!</h1>
+              <h3>Your Cart is Empty!</h3>
             ) : (
               <div id="cart">
                 <Table striped>
@@ -131,7 +134,7 @@ class Checkout extends React.Component {
         </Col>
 
         <Link to="/confirmation">
-          <Button>PURCHASE</Button>
+          <Button onClick={this.handleClick()}>PURCHASE</Button>
         </Link>
       </Container>
     )
@@ -148,6 +151,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     loadUserCart: userId => dispatch(getUserCart(userId))
+    //getPurchasedCart: userId => dispatch(getPurchasedCart(userId))
   }
 }
 

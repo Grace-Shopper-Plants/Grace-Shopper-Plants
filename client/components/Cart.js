@@ -31,7 +31,7 @@ class Cart extends React.Component {
         <Row>
           <Col>
             {!cart.length ? (
-              <h1>Your Cart is Empty</h1>
+              <h3>Your Cart is Empty</h3>
             ) : (
               <div id="cart">
                 <Table striped>

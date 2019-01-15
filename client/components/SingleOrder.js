@@ -26,8 +26,8 @@ class SingleOrder extends React.Component {
       <Container fluid>
         <Row>
           <Col>
-            <h1>Order Info</h1>
-            <h2>Order Number: {order[0].orderId}</h2>
+            <h3>Order Info</h3>
+            <h5>Order Number: {order[0].orderId}</h5>
             <Table striped>
               <thead>
                 <tr>
