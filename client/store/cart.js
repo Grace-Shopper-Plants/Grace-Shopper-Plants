@@ -9,6 +9,8 @@ let initialState = {
   cart: []
 }
 
+const localState = []
+
 export const setCart = cart => {
   return {
     type: SET_CART,
@@ -37,22 +39,35 @@ export const purchaseCart = cart => {
   }
 }
 
-export const getUserCart = userId => async dispatch => {
+export const getCart = (userId = null) => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/users/${userId}/cart`)
-    dispatch(setCart(data))
+    if (userId) {
+      const {data} = await axios.get(`/api/users/${userId}/cart`)
+      dispatch(setCart(data))
+    } else {
+      dispatch(setCart(localState))
+    }
   } catch (err) {
     console.error(err)
   }
 }
 
-export const addToUserCart = (plantId, userId, quantity) => async dispatch => {
+export const addToCart = (
+  plantId = null,
+  userId = null,
+  quantity = null
+) => async dispatch => {
   try {
-    const {data} = await axios.post(`/api/users/${userId}/cart`, {
-      quantity,
-      plantId
-    })
-    dispatch(addItem(data))
+    if (userId) {
+      const {data} = await axios.put(`/api/users/${userId}/cart`, {
+        quantity,
+        plantId
+      })
+      dispatch(addItem(data))
+    } else {
+      localState.push(JSON.parse(localStorage.getItem('cart')))
+      dispatch(addItem(JSON.parse(localStorage.getItem('cart'))))
+    }
   } catch (err) {
     console.error(err)
   }

@@ -1,13 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getUserCart} from '../store/cart'
+import {getCart} from '../store/cart'
 import {Container, Row, Col, Table, Media, Button} from 'reactstrap'
 import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
   componentDidMount() {
-    const userId = this.props.match.params.userId
-    this.props.getUserCart(userId)
+    console.log(localStorage.getItem('cart'))
+    if (this.props.user.id) {
+      this.props.getCart(this.props.user.id)
+    } else {
+      this.props.getCart()
+    }
   }
 
   // handleChange() {
@@ -20,7 +24,7 @@ class Cart extends React.Component {
 
   render() {
     const {cart} = this.props
-
+    console.log(cart)
     let total = 0
     total += cart
       .map(item => item.quantity * item.plant.price)
@@ -102,7 +106,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUserCart: userId => dispatch(getUserCart(userId))
+    getCart: userId => dispatch(getCart(userId))
   }
 }
 

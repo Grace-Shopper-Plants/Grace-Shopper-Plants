@@ -28,10 +28,10 @@ class Routes extends React.Component {
         <Switch>
           {/* Routes placed here are available to all visitors */}
           <Route exact path="/" component={Home} />
+          <Route exact path="/cart" component={Cart} />
           <Route exact path="/plants" component={AllPlants} />
           <Route exact path="/plants/:plantId" component={SinglePlant} />
           <Route exact path="/users/:userId/orders" component={AllOrders} />
-          <Route exact path="/users/:userId/cart" component={Cart} />
           <Route
             exact
             path="/users/:userId/orders/:orderId"

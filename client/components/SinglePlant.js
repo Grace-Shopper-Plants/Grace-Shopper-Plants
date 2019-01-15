@@ -1,6 +1,6 @@
 import React from 'react'
 import {getSinglePlant} from '../store/plants'
-import {addToUserCart} from '../store/cart'
+import {addToCart} from '../store/cart'
 import {connect} from 'react-redux'
 import {Container, Card, CardImg, CardSubtitle, Row, Col} from 'reactstrap'
 
@@ -8,30 +8,31 @@ class SinglePlant extends React.Component {
   constructor() {
     super()
     this.state = {
+      plant: {},
       quantity: 0
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
+
   componentDidMount() {
     const plantId = this.props.match.params.plantId
     this.props.getSinglePlant(plantId)
   }
 
   handleChange(evt) {
+    this.setState({plant: this.props.plant})
     this.setState({quantity: Number(evt.target.value)})
   }
 
   handleClick() {
     const {plant, user} = this.props
-    // this.props.addToUserCart(plant.id, user.id, this.state.quantity)
     if (user.id) {
-      this.props.addToUserCart(plant.id, user.id, this.state.quantity)
+      this.props.addToCart(plant.id, user.id, this.state.quantity)
+    } else {
+      localStorage.setItem('cart', JSON.stringify(this.state))
+      this.props.addToCart()
     }
-    // else {
-    //   localStorage.setItem('quantity:', this.state.quantity)
-    //   localStorage.setItem('')
-    // }
   }
 
   render() {
@@ -89,8 +90,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getSinglePlant: id => dispatch(getSinglePlant(id)),
-    addToUserCart: (plantId, userId, quantity) =>
-      dispatch(addToUserCart(plantId, userId, quantity))
+    addToCart: (plantId, userId, quantity) =>
+      dispatch(addToCart(plantId, userId, quantity))
   }
 }
 
