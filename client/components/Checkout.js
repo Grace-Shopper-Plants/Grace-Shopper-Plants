@@ -1,20 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getUserCart, getPurchasedCart} from '../store/cart'
-import {me} from '../store/user'
 import {Container, Row, Col, Table, Media, Button} from 'reactstrap'
 import {Link} from 'react-router-dom'
 
 class Checkout extends React.Component {
   componentDidMount() {
-    this.props.getUserCart(userId)
-    this.props.getUserInfo(userId)
-    const userId = this.props.user.id
+    this.props.getUserCart(this.props.user.Id)
   }
 
   handleClick() {
-    const userId = this.props.match.params.userId
-    this.props.getPurchasedCart(userId)
+    this.props.getPurchasedCart(this.props.user.Id)
   }
 
   render() {
@@ -84,15 +80,14 @@ class Checkout extends React.Component {
 const mapStateToProps = state => {
   return {
     cart: state.cart.cart,
-    user: state.user
+    user: state.user.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     getUserCart: userId => dispatch(getUserCart(userId)),
-    getPurchasedCart: userId => dispatch(getPurchasedCart(userId)),
-    getUserInfo: userId => dispatch(me(userId))
+    getPurchasedCart: userId => dispatch(getPurchasedCart(userId))
   }
 }
 
