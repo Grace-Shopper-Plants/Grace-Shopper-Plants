@@ -197,36 +197,6 @@ router.get('/:userId/cart', async (req, res, next) => {
   }
 })
 
-//route for adding items to a cart
-// router.post('/:userId/cart', async (req, res, next) => {
-//   try {
-//     const userId = Number(req.params.userId)
-//     let cart
-//     const quantity = req.body.quantity
-//     const plantId = req.body.plantId
-
-//     // if (req.user && req.user.id === userId) {
-//     cart = await Order.findOrCreate({
-//       where: {userId, bought: false}
-//     })
-
-//     const plant = await Plant.findById(plantId)
-
-//     const newOrderHistory = await OrderHistory.create({
-//         orderId: cart[0].id,
-//         plantId,
-//         soldprice: plant.price,
-//         quantity
-//     })
-//     res.json(newOrderHistory)
-//     // } else {
-//     //   res.json('ACCESS DENIED')
-//     // }
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
 //route for updating quantity in a cart
 router.put('/:userId/cart', async (req, res, next) => {
   try {
