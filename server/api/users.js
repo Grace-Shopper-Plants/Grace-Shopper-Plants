@@ -198,34 +198,34 @@ router.get('/:userId/cart', async (req, res, next) => {
 })
 
 //route for adding items to a cart
-router.post('/:userId/cart', async (req, res, next) => {
-  try {
-    const userId = Number(req.params.userId)
-    let cart
-    const quantity = req.body.quantity
-    const plantId = req.body.plantId
+// router.post('/:userId/cart', async (req, res, next) => {
+//   try {
+//     const userId = Number(req.params.userId)
+//     let cart
+//     const quantity = req.body.quantity
+//     const plantId = req.body.plantId
 
-    // if (req.user && req.user.id === userId) {
-    cart = await Order.findOrCreate({
-      where: {userId, bought: false}
-    })
+//     // if (req.user && req.user.id === userId) {
+//     cart = await Order.findOrCreate({
+//       where: {userId, bought: false}
+//     })
 
-    const plant = await Plant.findById(plantId)
+//     const plant = await Plant.findById(plantId)
 
-    const newOrderHistory = await OrderHistory.create({
-      orderId: cart[0].id,
-      plantId,
-      soldprice: plant.price,
-      quantity
-    })
-    res.json(newOrderHistory)
-    // } else {
-    //   res.json('ACCESS DENIED')
-    // }
-  } catch (error) {
-    next(error)
-  }
-})
+//     const newOrderHistory = await OrderHistory.create({
+//         orderId: cart[0].id,
+//         plantId,
+//         soldprice: plant.price,
+//         quantity
+//     })
+//     res.json(newOrderHistory)
+//     // } else {
+//     //   res.json('ACCESS DENIED')
+//     // }
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 //route for updating quantity in a cart
 router.put('/:userId/cart', async (req, res, next) => {
@@ -236,23 +236,36 @@ router.put('/:userId/cart', async (req, res, next) => {
 
     // if (req.user && req.user.id === userId) {
 
-    const cartToUpdate = await Order.findAll({
+    const cartToUpdate = await Order.findOne({
       where: {userId, bought: false}
     })
-
     if (!cartToUpdate) {
       res.status(404).json('CART DOES NOT EXIST!')
     }
 
     const cartItemToUpdate = await OrderHistory.findOne({
-      where: {orderId: cartToUpdate[cartToUpdate.length - 1].id, plantId},
+      where: {orderId: cartToUpdate.id, plantId},
       include: [{model: Plant}]
     })
-    const updatedItem = await cartItemToUpdate.update({
-      quantity
-    })
+    if (cartItemToUpdate) {
+      cartItemToUpdate.quantity += quantity
+      cartItemToUpdate.plant.inventory -= quantity
+      res.json(cartItemToUpdate)
+    } else {
+      const plant = await Plant.findById(plantId)
+      const newCartItem = await OrderHistory.create(
+        {
+          orderId: cartToUpdate.id,
+          plantId,
+          soldprice: plant.price,
+          quantity: req.body.quantity
+        },
+        {include: [{model: Plant}]}
+      )
+      console.log('NEW CART ITEM', newCartItem)
+      res.json(newCartItem)
+    }
 
-    res.json(updatedItem)
     // } else {
     //   res.json('ACCESS DENIED')
     // }
@@ -262,24 +275,22 @@ router.put('/:userId/cart', async (req, res, next) => {
 })
 
 //route for deleting a plantId from the cart
-router.delete('/:userId/cart', async (req, res, next) => {
+router.delete('/:userId/cart/:plantId', async (req, res, next) => {
   try {
-    const plantId = req.body.plantId
+    const plantId = req.params.plantId
     const userId = req.params.userId
-
+    console.log('PLANT ID', plantId)
     // if (req.user && req.user.id === userId) {
-    const cartToUpdate = await Order.findAll({
-      where: {userId, bought: false}
+    const cartToUpdate = await Order.findOne({
+      where: {userId, bought: false},
+      attributes: ['id']
     })
-
-    if (!cartToUpdate) {
-      res.status(404).json('CART DOES NOT EXIST!')
-    }
+    console.log('CART TO UPDATE', cartToUpdate.id)
 
     const cartItemToDelete = await OrderHistory.findOne({
-      where: {orderId: cartToUpdate[cartToUpdate.length - 1].id, plantId},
-      include: [{model: Plant}]
+      where: {orderId: cartToUpdate.id, plantId}
     })
+    console.log('ITEM TO DELETE', cartItemToDelete)
     await cartItemToDelete.destroy()
 
     res.json('ITEM DELETED!')

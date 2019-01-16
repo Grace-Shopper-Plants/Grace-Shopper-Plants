@@ -26,6 +26,9 @@ OrderHistory.belongsTo(Order)
 Plant.hasMany(OrderHistory)
 OrderHistory.belongsTo(Plant)
 
+// Order.belongsToMany(Plant, {through: OrderHistory})
+// Plant.belongsToMany(Order, {through: OrderHistory})
+
 module.exports = {
   User,
   Plant,

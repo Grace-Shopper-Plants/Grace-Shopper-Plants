@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getCart} from '../store/cart'
+import {getCart, deleteCartItem} from '../store/cart'
 import {Container, Row, Col, Table, Media, Button} from 'reactstrap'
 import {Link} from 'react-router-dom'
 
@@ -18,13 +18,11 @@ class Cart extends React.Component {
 
   // }
 
-  // handleClick() {
-
-  // }
+  handleClick() {}
 
   render() {
-    const {cart} = this.props
-    console.log(cart)
+    const {cart, user} = this.props
+    console.log('CART', cart)
     let total = 0
     total += cart
       .map(item => item.quantity * item.plant.price)
@@ -69,7 +67,19 @@ class Cart extends React.Component {
                             <option>4</option>
                             <option>5</option>
                           </select>
-                          <button type="button">Remove Item</button>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              this.props.user
+                                ? this.props.deleteCartItem(
+                                    user.id,
+                                    item.plant.id
+                                  )
+                                : this.props.deleteCartItem(null, item.plant.id)
+                            }
+                          >
+                            Remove Item
+                          </button>
                         </td>
                         <td>{'$' + (item.plant.price / 100).toFixed(2)}</td>
                         <td>
@@ -106,7 +116,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCart: userId => dispatch(getCart(userId))
+    getCart: userId => dispatch(getCart(userId)),
+    deleteCartItem: (userId, plantId) =>
+      dispatch(deleteCartItem(userId, plantId))
   }
 }
 

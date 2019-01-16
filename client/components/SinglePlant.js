@@ -28,7 +28,7 @@ class SinglePlant extends React.Component {
   handleClick() {
     const {plant, user} = this.props
     if (user.id) {
-      this.props.addToCart(plant.id, user.id, this.state.quantity, null)
+      this.props.addToCart(plant.id, user.id, this.state.quantity)
     } else {
       this.props.addToCart(null, null, null, this.state)
     }

@@ -62,6 +62,7 @@ export const addToCart = (
         quantity,
         plantId
       })
+      console.log('This is user data', data)
       dispatch(addItem(data))
     } else {
       if (!localStorage.getItem('cart')) {
@@ -82,10 +83,17 @@ export const addToCart = (
   }
 }
 
-export const deleteUserCartItem = userId => async dispatch => {
+export const deleteCartItem = (userId = null, plantId) => async dispatch => {
   try {
-    const {data} = await axios.delete(`/api/users/${userId}/cart`)
-    dispatch(deleteItem(data))
+    if (userId) {
+      await axios.delete(`/api/users/${userId}/cart/${plantId}`)
+      dispatch(deleteItem(plantId))
+    } else {
+      let cart = JSON.parse(localStorage.getItem('cart'))
+      cart = cart.filter(item => item.plant.id !== plantId)
+      localStorage.setItem('cart', JSON.stringify(cart))
+      dispatch(deleteItem(plantId))
+    }
   } catch (err) {
     console.error(err)
   }
@@ -122,7 +130,7 @@ const cartReducer = (state = initialState, action) => {
       }
     case DELETE_ITEM:
       return {
-        cart: [state.cart].filter(item => item.id !== action.itemId)
+        cart: state.cart.filter(item => item.id !== action.itemId)
       }
     case PURCHASE_CART:
       return {
