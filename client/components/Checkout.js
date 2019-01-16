@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getUserCart, getPurchasedCart} from '../store/cart'
+import {getCart} from '../store/cart'
 import {
   Container,
   Row,
@@ -15,10 +15,6 @@ import {
 import {Link} from 'react-router-dom'
 
 class Checkout extends React.Component {
-  handleClick() {
-    //this.props.getPurchasedCart(this.props.user.id)
-  }
-
   render() {
     if (!this.props.cart.length) this.props.loadUserCart(this.props.user.id)
     const {cart} = this.props
@@ -132,9 +128,8 @@ class Checkout extends React.Component {
             />
           </FormGroup>
         </Col>
-
         <Link to="/confirmation">
-          <Button onClick={this.handleClick()}>PURCHASE</Button>
+          <Button>PURCHASE</Button>
         </Link>
       </Container>
     )
@@ -150,8 +145,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadUserCart: userId => dispatch(getUserCart(userId))
-    //getPurchasedCart: userId => dispatch(getPurchasedCart(userId))
+    loadUserCart: userId => dispatch(getCart(userId))
   }
 }
 

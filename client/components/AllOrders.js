@@ -32,9 +32,7 @@ class AllOrders extends React.Component {
                 <tbody>
                   {orders.map(order => {
                     return (
-                      // <Link to={`/users/${order.userId}/orders/${order.id}`}>
                       <tr key={order.id}>
-                        {/* <th scope="row"></th> */}
                         <td>{order.id}</td>
                         <td>{order.date.slice(0, 10)}</td>
                         <td>

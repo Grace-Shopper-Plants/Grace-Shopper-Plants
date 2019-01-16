@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Redirect, withRouter, Route, Switch} from 'react-router-dom'
+import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome} from './components'
 import {me} from './store'
@@ -11,7 +11,9 @@ import SingleOrder from './components/SingleOrder'
 import Home from './components/Home'
 import Profile from './components/Profile'
 import Cart from './components/Cart'
-import {getCart, deleteCartItem} from './store/cart'
+import Checkout from './components/Checkout'
+import Confirmation from './components/Confirmation'
+import {getCart} from './store/cart'
 
 /**
  * COMPONENT
@@ -35,6 +37,8 @@ class Routes extends React.Component {
           {/* Routes placed here are available to all visitors */}
           <Route exact path="/" component={Home} />
           <Route exact path="/cart" component={Cart} />
+          <Route exact path="/checkout" component={Checkout} />
+          <Route exact path="/confirmation" component={Confirmation} />
           <Route exact path="/plants" component={AllPlants} />
           <Route exact path="/plants/:plantId" component={SinglePlant} />
           <Route exact path="/users/:userId/orders" component={AllOrders} />
@@ -53,7 +57,6 @@ class Routes extends React.Component {
             </Switch>
           )}
           {/* Displays our Login component as a fallback */}
-          {/* <Redirect from="*" to="/" /> */}
         </Switch>
       </div>
     )

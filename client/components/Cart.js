@@ -5,6 +5,15 @@ import {Container, Row, Col, Table, Media, Button} from 'reactstrap'
 import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
+  constructor() {
+    super()
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick(event) {
+    event.preventDefault()
+  }
+
   render() {
     const {cart, user} = this.props
     let total = 0
@@ -79,7 +88,7 @@ class Cart extends React.Component {
                 <h4 className="align-center">
                   <strong>Total: {'$' + (total / 100).toFixed(2)}</strong>
                 </h4>
-                <Link to="/cart">
+                <Link to="/checkout">
                   <Button>CHECKOUT</Button>
                 </Link>
               </div>

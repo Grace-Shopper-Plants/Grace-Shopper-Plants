@@ -7,11 +7,8 @@ import {
   CardText,
   CardTitle,
   CardBody,
-  Button,
-  Row,
   Col
 } from 'reactstrap'
-import plantsReducer from '../store/plants'
 
 const ProductCard = props => {
   const {product} = props
