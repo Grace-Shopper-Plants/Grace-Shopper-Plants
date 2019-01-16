@@ -1,7 +1,7 @@
 import React from 'react'
 import {getProfile} from '../store/profile'
 import {connect} from 'react-redux'
-//import {Container, Row} from 'reactstrap'
+import {ListGroup, ListGroupItem} from 'reactstrap'
 
 class Profile extends React.Component {
   componentDidMount() {
@@ -13,14 +13,15 @@ class Profile extends React.Component {
     const {profile} = this.props
     return (
       <div id="profile">
-        <h1 id="profileHeader">Profile</h1>
-        <p id="profileName">Name: {profile.name}</p>
-        <p id="profileEmail">Email: {profile.email}</p>
-        <p id="profileAddress">
-          Address:
-          {profile.houseNumber} {profile.street}
-          {profile.city} {profile.state} {profile.zipCode}
-        </p>
+        <h3 id="profileHeader">Profile</h3>
+        <ListGroup>
+          <ListGroupItem color="primary">Name: {profile.name}</ListGroupItem>
+          <ListGroupItem color="primary">Email: {profile.email}</ListGroupItem>
+          <ListGroupItem color="primary">
+            Address: {profile.houseNumber} {profile.street} {profile.city},{' '}
+            {profile.state} {profile.zipCode}{' '}
+          </ListGroupItem>
+        </ListGroup>
       </div>
     )
   }

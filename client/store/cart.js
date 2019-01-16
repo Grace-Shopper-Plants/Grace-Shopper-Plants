@@ -37,31 +37,62 @@ export const purchaseCart = cart => {
   }
 }
 
-export const getUserCart = userId => async dispatch => {
+export const getCart = (userId = null) => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/users/${userId}/cart`)
-    dispatch(setCart(data))
+    if (userId) {
+      const {data} = await axios.get(`/api/users/${userId}/cart`)
+      dispatch(setCart(data))
+    } else {
+      dispatch(setCart(JSON.parse(localStorage.getItem('cart'))))
+    }
   } catch (err) {
     console.error(err)
   }
 }
 
-export const addToUserCart = (plantId, userId, quantity) => async dispatch => {
+export const addToCart = (
+  plantId = null,
+  userId = null,
+  quantity = null,
+  cartItem = null
+) => async dispatch => {
   try {
-    const {data} = await axios.post(`/api/users/${userId}/cart`, {
-      quantity,
-      plantId
-    })
-    dispatch(addItem(data))
+    if (userId) {
+      const {data} = await axios.put(`/api/users/${userId}/cart`, {
+        quantity,
+        plantId
+      })
+      dispatch(addItem(data))
+    } else {
+      if (!localStorage.getItem('cart')) {
+        localStorage.setItem('cart', JSON.stringify([cartItem]))
+      } else {
+        localStorage.setItem(
+          'cart',
+          JSON.stringify([
+            ...JSON.parse(localStorage.getItem('cart')),
+            cartItem
+          ])
+        )
+      }
+      dispatch(addItem(cartItem))
+    }
   } catch (err) {
     console.error(err)
   }
 }
 
-export const deleteUserCartItem = userId => async dispatch => {
+export const deleteCartItem = (userId = null, plantId) => async dispatch => {
   try {
-    const {data} = await axios.delete(`/api/users/${userId}/cart`)
-    dispatch(deleteItem(data))
+    if (userId) {
+      await axios.delete(`/api/users/${userId}/cart/${plantId}`)
+      dispatch(deleteItem(plantId))
+    } else {
+      let cart = JSON.parse(localStorage.getItem('cart'))
+      cart = cart.filter(item => item.plant.id !== plantId)
+      localStorage.setItem('cart', JSON.stringify(cart))
+      dispatch(deleteItem(plantId))
+    }
   } catch (err) {
     console.error(err)
   }
@@ -69,22 +100,12 @@ export const deleteUserCartItem = userId => async dispatch => {
 
 export const getPurchasedCart = userId => async dispatch => {
   try {
-    const {data} = await axios.delete(`/api/users/${userId}/cart/purchase`)
+    const {data} = await axios.put(`/api/users/${userId}/cart/purchase`)
     dispatch(purchaseCart(data))
   } catch (err) {
-    console.err(err)
+    console.error(err)
   }
 }
-
-// export const getNonUserCart = () => async dispatch => {
-//     try {
-//         const {data} = await localStorage.get()
-//         dispatch(setCart(data))
-//     }
-//     catch (err) {
-//         console.err(err)
-//     }
-// }
 
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -98,7 +119,7 @@ const cartReducer = (state = initialState, action) => {
       }
     case DELETE_ITEM:
       return {
-        cart: [state.cart].filter(item => item.id !== action.itemId)
+        cart: state.cart.filter(item => item.id !== action.itemId)
       }
     case PURCHASE_CART:
       return {
