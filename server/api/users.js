@@ -5,13 +5,8 @@ module.exports = router
 // route for getting all users (for admin)
 router.get('/', async (req, res, next) => {
   try {
-    // if (req.user && req.user.isAdmin) {
     const users = await User.findAll({attributes: ['id', 'name', 'email']})
     res.json(users)
-
-    // } else {
-    //   res.json('ACCESS DENIED')
-    // }
   } catch (err) {
     next(err)
   }
@@ -21,8 +16,6 @@ router.get('/', async (req, res, next) => {
 router.get('/:userId/profile', async (req, res, next) => {
   try {
     const userId = Number(req.params.userId)
-
-    // if (req.user && req.user.id === userId) {
     const user = await User.findById(userId, {
       attributes: [
         'name',
@@ -35,44 +28,16 @@ router.get('/:userId/profile', async (req, res, next) => {
       ]
     })
     res.json(user)
-
-    // } else {
-    //   res.json('ACCESS DENIED')
-    // }
   } catch (err) {
     next(err)
   }
 })
-
-// route for a guest signing up as a user
-// router.post('/signup', async (req, res, next) => {
-//   try {
-//     const userInfo = {
-//       name: req.body.name,
-//       email: req.body.email,
-//       password: req.body.password,
-//       houseNumber: req.body.houseNumber,
-//       street: req.body.street,
-//       city: req.body.city,
-//       state: req.body.state,
-//       zipcode: req.body.zipCode,
-//       cardNumber: req.body.cardNumber,
-//       cardExpireDate: req.body.cardExpireDate,
-//       cvc: req.body.cvc
-//     }
-//     const user = await User.create(userInfo)
-//     res.json(user)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
 
 // route for a user updating their profile
 router.put('/:userId/profile', async (req, res, next) => {
   try {
     const userId = Number(req.params.userId)
 
-    // if (req.user && req.user.id === userId) {
     const user = await User.findById(userId)
 
     const userInfo = {
@@ -91,10 +56,6 @@ router.put('/:userId/profile', async (req, res, next) => {
 
     const updatedUserInfo = await user.update(userInfo)
     res.json(updatedUserInfo)
-
-    // } else {
-    //   res.json('ACCESS DENIED')
-    // }
   } catch (err) {
     next(err)
   }
@@ -104,15 +65,9 @@ router.put('/:userId/profile', async (req, res, next) => {
 router.delete('/:userId/profile', async (req, res, next) => {
   try {
     const userId = Number(req.params.userId)
-
-    // if (req.user && req.user.id === userId) {
     const user = await User.findById(userId)
     const deletedUser = await user.destroy()
     res.json('USER DELETED')
-
-    // } else {
-    //   res.json('ACCESS DENIED')
-    // }
   } catch (err) {
     next(err)
   }
@@ -122,8 +77,6 @@ router.delete('/:userId/profile', async (req, res, next) => {
 router.get('/:userId/orders', async (req, res, next) => {
   try {
     const userId = Number(req.params.userId)
-
-    // if (req.user && req.user.id === userId) {
     const orders = await Order.findAll({
       where: {userId, bought: true}
     })
@@ -132,10 +85,6 @@ router.get('/:userId/orders', async (req, res, next) => {
       res.status(404).json('YOU HAVE NO ORDERS!')
     }
     res.json(orders)
-
-    // } else {
-    //   res.json('ACCESS DENIED')
-    // }
   } catch (error) {
     next(error)
   }
@@ -147,7 +96,6 @@ router.get('/:userId/orders/:orderId', async (req, res, next) => {
     const userId = Number(req.params.userId)
     const orderId = Number(req.params.orderId)
 
-    // if (req.user && req.user.id === userId) {
     const order = await Order.findOne({
       where: {userId, id: orderId, bought: true}
     })
@@ -161,10 +109,6 @@ router.get('/:userId/orders/:orderId', async (req, res, next) => {
       include: [{model: Plant}]
     })
     res.json(orderItems)
-
-    // } else {
-    //   res.json('ACCESS DENIED')
-    // }
   } catch (error) {
     next(error)
   }
@@ -174,8 +118,6 @@ router.get('/:userId/orders/:orderId', async (req, res, next) => {
 router.get('/:userId/cart', async (req, res, next) => {
   try {
     const userId = Number(req.params.userId)
-
-    // if (req.user && req.user.id === userId) {
     const cart = await Order.findAll({
       where: {userId, bought: false}
     })
@@ -189,43 +131,10 @@ router.get('/:userId/cart', async (req, res, next) => {
       include: [{model: Plant}]
     })
     res.json(cartItems)
-    // } else {
-    //   res.json('ACCESS DENIED')
-    // }
   } catch (error) {
     next(error)
   }
 })
-
-//route for adding items to a cart
-// router.post('/:userId/cart', async (req, res, next) => {
-//   try {
-//     const userId = Number(req.params.userId)
-//     let cart
-//     const quantity = req.body.quantity
-//     const plantId = req.body.plantId
-
-//     // if (req.user && req.user.id === userId) {
-//     cart = await Order.findOrCreate({
-//       where: {userId, bought: false}
-//     })
-
-//     const plant = await Plant.findById(plantId)
-
-//     const newOrderHistory = await OrderHistory.create({
-//         orderId: cart[0].id,
-//         plantId,
-//         soldprice: plant.price,
-//         quantity
-//     })
-//     res.json(newOrderHistory)
-//     // } else {
-//     //   res.json('ACCESS DENIED')
-//     // }
-//   } catch (error) {
-//     next(error)
-//   }
-// })
 
 //route for updating quantity in a cart
 router.put('/:userId/cart', async (req, res, next) => {
@@ -233,9 +142,6 @@ router.put('/:userId/cart', async (req, res, next) => {
     const plantId = req.body.plantId
     const quantity = req.body.quantity
     const userId = req.params.userId
-
-    // if (req.user && req.user.id === userId) {
-
     const cartToUpdate = await Order.findOne({
       where: {userId, bought: false}
     })
@@ -249,9 +155,6 @@ router.put('/:userId/cart', async (req, res, next) => {
     })
     if (cartItemToUpdate) {
       cartItemToUpdate.quantity += quantity
-      // await cartItemToUpdate.update({
-      //   quantity: newQuantity
-      // })
       cartItemToUpdate.plant.inventory -= quantity
       res.json(cartItemToUpdate)
     } else {
@@ -267,10 +170,6 @@ router.put('/:userId/cart', async (req, res, next) => {
       )
       res.json(newCartItem)
     }
-
-    // } else {
-    //   res.json('ACCESS DENIED')
-    // }
   } catch (error) {
     next(error)
   }
@@ -281,7 +180,6 @@ router.delete('/:userId/cart/:plantId', async (req, res, next) => {
   try {
     const plantId = req.params.plantId
     const userId = req.params.userId
-    // if (req.user && req.user.id === userId) {
     const cartToUpdate = await Order.findOne({
       where: {userId, bought: false},
       attributes: ['id']
@@ -293,9 +191,6 @@ router.delete('/:userId/cart/:plantId', async (req, res, next) => {
     await cartItemToDelete.destroy()
 
     res.json('ITEM DELETED!')
-    // } else {
-    //   res.json('ACCESS DENIED')
-    // }
   } catch (error) {
     next(error)
   }
@@ -305,24 +200,15 @@ router.delete('/:userId/cart/:plantId', async (req, res, next) => {
 router.put('/:userId/cart/purchase', async (req, res, next) => {
   try {
     const userId = Number(req.params.userId)
-
-    // if (req.user && req.user.id === userId) {
     const cart = await Order.findOne({
       where: {userId, bought: false}
     })
-
-    //update date in model to 'new Date' as the default
-
     const purchased = await cart.update({
       bought: true,
       date: new Date()
     })
 
     res.json(purchased)
-
-    // } else {
-    //   res.json('ACCESS DENIED')
-    // }
   } catch (err) {
     next(err)
   }

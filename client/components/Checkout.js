@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getCart, getPurchasedCart} from '../store/cart'
+import {getCart} from '../store/cart'
 import {
   Container,
   Row,
@@ -12,7 +12,6 @@ import {
   Label,
   Input
 } from 'reactstrap'
-import Confirmation from './Confirmation'
 import {Link} from 'react-router-dom'
 
 class Checkout extends React.Component {
