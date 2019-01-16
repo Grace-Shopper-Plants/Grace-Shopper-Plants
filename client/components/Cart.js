@@ -6,21 +6,20 @@ import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
   componentDidMount() {
-    console.log(localStorage.getItem('cart'))
+    // console.log('LOCAL STORAGE', localStorage.getItem('cart'))
     if (this.props.user.id) {
       this.props.getCart(this.props.user.id)
-    } else {
-      this.props.getCart()
     }
   }
 
-  // handleChange() {
-
-  // }
-
-  handleClick() {}
-
   render() {
+    if (this.props.user.id && !this.props.cart.length) {
+      this.props.getCart(this.props.user.id)
+    }
+
+    if (!this.props.user.id && !this.props.cart.length) {
+      this.props.getCart()
+    }
     const {cart, user} = this.props
     console.log('CART', cart)
     let total = 0
