@@ -142,51 +142,82 @@ async function seed() {
 
   const users = await Promise.all([
     User.create({
+      name: 'Cody Derp',
       email: 'cody@email.com',
       password: '123',
       cardNumber: 2,
       cardExpireDate: '2018-09-04 01:05:02',
       cvc: 232,
-      street: 'Wall St',
-      city: 'NYC'
+      houseNumber: 734,
+      street: 'Derp St.',
+      city: 'Brooklyn',
+      state: 'NY',
+      zipCode: '23423'
     }),
     User.create({
-      email: 'murphy@email.com',
       name: 'Murphy Smith',
+      email: 'murphy@email.com',
       password: '123',
       cardNumber: 2,
       cardExpireDate: '2018-09-04 01:05:02',
-      cvc: 232
+      cvc: 666,
+      houseNumber: 666,
+      street: 'Fake St.',
+      city: 'Bronx',
+      state: 'NY',
+      zipCode: '11456'
     }),
     User.create({
-      email: 'bob@email.com',
       name: 'Bob Dole',
+      email: 'bob@email.com',
       password: '456',
       cardNumber: 2,
       cardExpireDate: '2018-09-04 01:05:02',
-      cvc: 232
+      cvc: 266,
+      houseNumber: 521,
+      street: 'Elm St.',
+      city: 'Queens',
+      state: 'NY',
+      zipCode: '90210'
     }),
     User.create({
+      name: 'Milly',
       email: 'milly@email.com',
       password: '789',
-      cardNumber: 2,
+      cardNumber: 9,
       cardExpireDate: '2018-09-04 01:05:02',
-      cvc: 232
+      cvc: 111,
+      houseNumber: 123,
+      street: 'Law St.',
+      city: 'Brooklyn',
+      state: 'NY',
+      zipCode: '11111'
     }),
     User.create({
-      email: 'yoyo@email.com',
       name: 'Yo Yo',
-      password: '127',
+      email: 'yoyo@email.com',
+      password: '123',
       cardNumber: 4,
       cardExpireDate: '2018-09-04 01:05:02',
-      cvc: 232
+      cvc: 567,
+      houseNumber: 111,
+      street: 'Cross St.',
+      city: 'Brooklyn',
+      state: 'NY',
+      zipCode: '41232'
     }),
     User.create({
+      name: 'Mocha Loca',
       email: 'mocha@email.com',
       password: '321',
       cardNumber: 4,
       cardExpireDate: '2018-09-04 01:05:02',
-      cvc: 232
+      cvc: 412,
+      houseNumber: 808,
+      street: 'Drum St.',
+      city: 'Queens',
+      state: 'NY',
+      zipCode: '80808'
     })
   ])
 
@@ -279,7 +310,6 @@ async function seed() {
     })
   ])
 
-  //console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
 

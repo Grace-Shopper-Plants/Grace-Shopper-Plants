@@ -62,24 +62,6 @@ const plants = [
   }
 ]
 
-// describe('<AllPlants /> component rendering', () => {
-//   it('renders a div', () => {
-//     const wrapper = shallow(<AllPlants store={store} />)
-//     console.log("I AM STATE FROM STORE: ", store.getState())
-//     console.log("WRAPPER: ", wrapper)
-//     expect(wrapper.find('h1').text()).to.equal("Please Buy Our Plants! So we don't end up like SEARS :(")
-//   })
-// });
-
-// describe('`gotPlants action creator', () => {
-//   const gotPlantsAction = gotPlants(plants)
-
-//   it('creates an object with `type` and `plants`', () => {
-//     expect(gotPlantsAction.type).to.equal(SET_PLANTS)
-//     expect(gotPlantsAction.plants[1].price).to.equal(20)
-//   })
-// })
-
 describe('plantsReducer', () => {
   const initialState = {
     plants: [],

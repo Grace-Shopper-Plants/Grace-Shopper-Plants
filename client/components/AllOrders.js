@@ -17,7 +17,7 @@ class AllOrders extends React.Component {
     }
     return (
       <div id="all-orders">
-        <h1>Order History</h1>
+        <h3>Order History</h3>
         <Container fluid>
           <Row>
             <Col>

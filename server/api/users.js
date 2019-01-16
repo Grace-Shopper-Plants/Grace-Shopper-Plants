@@ -249,6 +249,9 @@ router.put('/:userId/cart', async (req, res, next) => {
     })
     if (cartItemToUpdate) {
       cartItemToUpdate.quantity += quantity
+      // await cartItemToUpdate.update({
+      //   quantity: newQuantity
+      // })
       cartItemToUpdate.plant.inventory -= quantity
       res.json(cartItemToUpdate)
     } else {
@@ -262,7 +265,6 @@ router.put('/:userId/cart', async (req, res, next) => {
         },
         {include: [{model: Plant}]}
       )
-      console.log('NEW CART ITEM', newCartItem)
       res.json(newCartItem)
     }
 
@@ -279,18 +281,15 @@ router.delete('/:userId/cart/:plantId', async (req, res, next) => {
   try {
     const plantId = req.params.plantId
     const userId = req.params.userId
-    console.log('PLANT ID', plantId)
     // if (req.user && req.user.id === userId) {
     const cartToUpdate = await Order.findOne({
       where: {userId, bought: false},
       attributes: ['id']
     })
-    console.log('CART TO UPDATE', cartToUpdate.id)
 
     const cartItemToDelete = await OrderHistory.findOne({
       where: {orderId: cartToUpdate.id, plantId}
     })
-    console.log('ITEM TO DELETE', cartItemToDelete)
     await cartItemToDelete.destroy()
 
     res.json('ITEM DELETED!')
@@ -328,16 +327,3 @@ router.put('/:userId/cart/purchase', async (req, res, next) => {
     next(err)
   }
 })
-
-// //Left this here to reference when implementing login/admin stuff:
-
-// router.get('/:id', async (req, res, next) => {
-//   try {
-//     if ((req.login && req.id) || req.isAdmin) {
-//       const user = await User.findById(req.params.id)
-//       res.json(user)
-//     }
-//   } catch (err) {
-//     next(err)
-//   }
-// })

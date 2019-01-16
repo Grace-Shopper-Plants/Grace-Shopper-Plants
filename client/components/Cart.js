@@ -5,23 +5,8 @@ import {Container, Row, Col, Table, Media, Button} from 'reactstrap'
 import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
-  componentDidMount() {
-    // console.log('LOCAL STORAGE', localStorage.getItem('cart'))
-    if (this.props.user.id) {
-      this.props.getCart(this.props.user.id)
-    }
-  }
-
   render() {
-    if (this.props.user.id && !this.props.cart.length) {
-      this.props.getCart(this.props.user.id)
-    }
-
-    if (!this.props.user.id && !this.props.cart.length) {
-      this.props.getCart()
-    }
     const {cart, user} = this.props
-    console.log('CART', cart)
     let total = 0
     total += cart
       .map(item => item.quantity * item.plant.price)
