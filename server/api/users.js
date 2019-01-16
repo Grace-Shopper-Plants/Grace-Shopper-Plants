@@ -219,9 +219,6 @@ router.put('/:userId/cart', async (req, res, next) => {
     })
     if (cartItemToUpdate) {
       cartItemToUpdate.quantity += quantity
-      // await cartItemToUpdate.update({
-      //   quantity: newQuantity
-      // })
       cartItemToUpdate.plant.inventory -= quantity
       res.json(cartItemToUpdate)
     } else {
