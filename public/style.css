@@ -20,6 +20,11 @@ form div {
   display: inline-block;
 }
 
+#homepage {
+  text-align: center;
+  font-style: italic;
+}
+
 /* .card-image {
   width: 25em;
   height: 25em;
