@@ -13,7 +13,7 @@ class AllPlants extends React.Component {
     const {plants} = this.props
     return (
       <div id="all-plants">
-        <h3>Please Buy Our Plants! So we don't end up like SEARS :(</h3>
+        {/* <h3>Please Buy Our Plants! So we don't end up like SEARS :(</h3> */}
         <Container fluid>
           <Row>
             {plants.map(plant => {
